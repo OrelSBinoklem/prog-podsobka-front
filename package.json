@@ -20,6 +20,7 @@
     "bootstrap-vue": "^2.21.2",
     "color": "^4.0.1",
     "core-js": "^3.15.1",
+    "dotenv": "^10.0.0",
     "emmet": "^2.3.4",
     "glyphicons-only-bootstrap": "^1.0.1",
     "js-cookie": "^3.0.1",

@@ -1,14 +1,26 @@
 export default {
+  ssr: false,
+
+  srcDir: __dirname,
+
+  env: {
+    apiUrl: process.env.API_URL || process.env.APP_URL + '/api',
+    appName: process.env.APP_NAME || 'Laravel Nuxt',
+    appLocale: process.env.APP_LOCALE || 'ru',
+    githubAuth: !!process.env.GITHUB_CLIENT_ID
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: pkg.name,
+    title: process.env.APP_NAME,
+    titleTemplate: '%s - ' + process.env.APP_NAME,
     htmlAttrs: {
       lang: 'ru'
     },
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: pkg.description }
+      { hid: "description", name: "description", content: "Nuxt.js project" }
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
@@ -47,13 +59,20 @@ export default {
   loading: { color: "#fff" },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["@/assets/styles.css"],
+  css: [
+    { src: '~assets/sass/app.scss', lang: 'scss' }
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "./plugins/mixins/user.js",
-    "./plugins/axios.js",
-    "./plugins/mixins/validation.js"
+    "./plugins/mixins/validation.js",
+
+    '~plugins/i18n',
+    '~plugins/axios',
+    '~plugins/fontawesome',
+    //??'~plugins/nuxt-client-init',
+    { src: '~plugins/bootstrap', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -70,9 +89,13 @@ export default {
     "@nuxtjs/auth"
   ],
 
+  router: {
+    base: '/router/'
+  },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: "http://backend.test/api"
+    baseURL: process.env.API_URL || process.env.APP_URL + '/api'
   },
 
   auth: {

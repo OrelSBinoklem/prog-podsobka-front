@@ -1,64 +1,56 @@
-const Login = () => import('~/pages/auth/login').then(m => m.default || m)
-const Register = () => import('~/pages/auth/register').then(m => m.default || m)
-const EmailSend = () => import('~/pages/auth/email/send').then(m => m.default || m)
-const EmailVerify = () => import('~/pages/auth/email/verify').then(m => m.default || m)
-const PasswordEmail = () => import('~/pages/auth/password/email').then(m => m.default || m)
-const PasswordReset = () => import('~/pages/auth/password/reset').then(m => m.default || m)
-const NotFound = () => import('~/pages/errors/404').then(m => m.default || m)
+import Vue from 'vue'
+import Router from 'vue-router'
+import { scrollBehavior } from '~/utils'
 
-const Home = () => import('~/pages/home').then(m => m.default || m)
-const Settings = () => import('~/pages/settings/index').then(m => m.default || m)
-const SettingsProfile = () => import('~/pages/settings/profile').then(m => m.default || m)
-const SettingsPassword = () => import('~/pages/settings/password').then(m => m.default || m)
+Vue.use(Router)
 
-const Admin = () => import('~/pages/admin/index').then(m => m.default || m)
-const AdminUsers = () => import('~/pages/admin/users').then(m => m.default || m)
-const AdminPermissions = () => import('~/pages/admin/permissions').then(m => m.default || m)
-const AdminMenus = () => import('~/pages/admin/menus').then(m => m.default || m)
-const AdminContent = () => import('~/pages/admin/content').then(m => m.default || m)
-const AdminTaxonomy = () => import('~/pages/admin/taxonomy').then(m => m.default || m)
-
-const PresentationGeneralEducationTraining = () => import('~/pages/presentation/general-education-training').then(m => m.default || m)
-const PresentationWebProgrammingMaterials = () => import('~/pages/presentation/web-programming-materials').then(m => m.default || m)
-
-const ContentJsPlugin = () => import('~/pages/content/js-plugin').then(m => m.default || m)
+const page = path => () => import(`~/pages/${path}`).then(m => m.default || m)
 
 export default [
-  { path: '/', name: 'home', component: Home },
+  { path: '/', name: 'home', component: page('~/pages/home') },
 
-  { path: '/login', name: 'login', component: Login },
-  { path: '/register', name: 'register', component: Register },
-  { path: '/email/send', name: 'email.resend', component: EmailSend },
-  { path: '/email/verify/:id', name: 'email.verify', component: EmailVerify },
-  { path: '/password/reset', name: 'password.request', component: PasswordEmail },
-  { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset },
+  { path: '/login', name: 'login', component: page('~/pages/auth/login') },
+  { path: '/register', name: 'register', component: page('~/pages/auth/register') },
+  { path: '/email/send', name: 'email.resend', component: page('~/pages/auth/email/send') },
+  { path: '/email/verify/:id', name: 'email.verify', component: page('~/pages/auth/email/verify') },
+  { path: '/password/reset', name: 'password.request', component: page('~/pages/auth/password/email') },
+  { path: '/password/reset/:token', name: 'password.reset', component: page('~/pages/auth/password/reset') },
 
   { path: '/settings',
-    component: Settings,
+    component: page('~/pages/settings/index'),
     children: [
       { path: '', redirect: { name: 'settings.profile' } },
-      { path: 'profile', name: 'settings.profile', component: SettingsProfile },
-      { path: 'password', name: 'settings.password', component: SettingsPassword }
+      { path: 'profile', name: 'settings.profile', component: page('~/pages/settings/profile') },
+      { path: 'password', name: 'settings.password', component: page('~/pages/settings/password') }
     ] },
 
-  { path: '/admin', name: 'admin.dashboard', component: Admin },
-  { path: '/admin/users', name: 'admin.users', component: AdminUsers },
-  { path: '/admin/permissions', name: 'admin.permissions', component: AdminPermissions },
-  { path: '/admin/menu', name: 'admin.menu', component: AdminMenus },
-  { path: '/admin/menu/:slug', name: 'admin.menu.slug', component: AdminMenus },
-  { path: '/admin/taxonomy', name: 'admin.taxonomy', component: AdminTaxonomy },
-  { path: '/admin/content', name: 'admin.content', component: AdminContent },
-  { path: '/admin/content/:type', name: 'admin.content.type', component: AdminContent },
-  { path: '/admin/content/:type/create', name: 'admin.content.create', component: AdminContent },
-  { path: '/admin/content/:type/update/:id', name: 'admin.content.update', component: AdminContent },
+  { path: '/admin', name: 'admin.dashboard', component: page('~/pages/admin/index') },
+  { path: '/admin/users', name: 'admin.users', component: page('~/pages/admin/users') },
+  { path: '/admin/permissions', name: 'admin.permissions', component: page('~/pages/admin/permissions') },
+  { path: '/admin/menu', name: 'admin.menu', component: page('~/pages/admin/menus') },
+  { path: '/admin/menu/:slug', name: 'admin.menu.slug', component: page('~/pages/admin/menus') },
+  { path: '/admin/taxonomy', name: 'admin.taxonomy', component: page('~/pages/admin/taxonomy') },
+  { path: '/admin/content', name: 'admin.content', component: page('~/pages/admin/content') },
+  { path: '/admin/content/:type', name: 'admin.content.type', component: page('~/pages/admin/content') },
+  { path: '/admin/content/:type/create', name: 'admin.content.create', component: page('~/pages/admin/content') },
+  { path: '/admin/content/:type/update/:id', name: 'admin.content.update', component: page('~/pages/admin/content') },
 
   //Presentation pages
-  { path: '/presentation/general-education-training', name: 'presentation.general-education-training', component: PresentationGeneralEducationTraining },
-  { path: '/presentation/web-programming-materials', name: 'presentation.web-programming-materials', component: PresentationWebProgrammingMaterials },
-  { path: '/presentation/web-programming-materials', name: 'presentation.jquery', component: PresentationWebProgrammingMaterials },
+  { path: '/presentation/general-education-training', name: 'presentation.general-education-training', component: page('~/pages/presentation/general-education-training') },
+  { path: '/presentation/web-programming-materials', name: 'presentation.web-programming-materials', component: page('~/pages/presentation/web-programming-materials') },
+  { path: '/presentation/web-programming-materials', name: 'presentation.jquery', component: page('~/pages/presentation/web-programming-materials') },
 
-  { path: '/content/js-plugin/:slug', name: 'content.js-plugin', component: ContentJsPlugin },
-  { path: '/content/:type_slug/:slug', name: 'content', component: NotFound },
+  { path: '/content/js-plugin/:slug', name: 'content.js-plugin', component: page('~/pages/content/js-plugin') },
+  { path: '/content/:type_slug/:slug', name: 'content', component: page('~/pages/errors/404') },
 
-  { path: '*', component: NotFound }
+  { path: '*', component: page('~/pages/errors/404') }
 ]
+
+
+export function createRouter () {
+  return new Router({
+    routes,
+    scrollBehavior,
+    mode: 'history'
+  })
+}
