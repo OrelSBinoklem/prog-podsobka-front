@@ -17,19 +17,21 @@
     "@fortawesome/vue-fontawesome": "^2.0.6",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/router": "^1.6.1",
+    "babel-runtime": "^6.26.0",
     "bootstrap-vue": "^2.21.2",
     "color": "^4.0.1",
     "core-js": "^3.15.1",
     "dotenv": "^10.0.0",
     "emmet": "^2.3.4",
     "glyphicons-only-bootstrap": "^1.0.1",
+    "jquery": "^3.6.0",
     "js-cookie": "^3.0.1",
     "liquor-tree": "^0.2.70",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "nuxt": "^2.15.7",
     "object-to-formdata": "^4.1.0",
-    "pug": "^3.0.2",
     "sweetalert2": "^11.1.9",
     "v-markdown-editor": "^1.2.6",
     "validatorjs": "^3.22.1",
@@ -51,5 +53,10 @@
     "vuetable-2": "^1.7.5",
     "xregexp": "^5.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "sass": "^1.43.4",
+    "sass-loader": "^10.1.1"
+  }
 }

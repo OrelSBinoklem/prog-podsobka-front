@@ -1,3 +1,5 @@
+import path from 'path'
+
 export default {
   ssr: false,
 
@@ -84,14 +86,11 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    ['@nuxtjs/router', { path: path.join(__dirname, 'router'), fileName: 'routes.js' }],
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/auth"
   ],
-
-  router: {
-    base: '/router/'
-  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -123,6 +122,14 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extend(config, ctx) {}
+    extend(config, ctx) {},
+    loaders: {
+      sass: {
+        implementation: require('sass'),
+      },
+      scss: {
+        implementation: require('sass'),
+      },
+    },
   }
 }
