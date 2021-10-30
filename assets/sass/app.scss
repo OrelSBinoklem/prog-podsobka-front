@@ -1,0 +1,67 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Bootstrap - Vue
+@import '../../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
+
+@import '../../node_modules/vuescroll/dist/vuescroll.css';
+
+@import '~sweetalert2/src/sweetalert2';
+
+@import "~vue-snotify/styles/material";
+
+@import '../../node_modules/vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+
+@import 'elements/card';
+@import 'elements/navbar';
+@import 'elements/buttons';
+@import 'elements/transitions';
+
+/*.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}*/
+.pl-6 {
+  padding-left: 65px !important;
+}
+
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+.bs-callout > *:last-child {
+  margin-bottom: 0;
+}
+.bs-callout-danger {
+  border-left-color: #d9534f;
+}
+.bs-callout-warning {
+  border-left-color: #f0ad4e;
+}
+.bs-callout-info {
+  border-left-color: #5bc0de;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bs-callout-danger h4 {
+  color: #d9534f;
+}
+.bs-callout-warning h4 {
+  color: #f0ad4e;
+}
+.bs-callout-info h4 {
+  color: #5bc0de;
+}
+
+//todo-fix vue-tour
+.v-tour .v-step {
+  z-index: 20;
+}
