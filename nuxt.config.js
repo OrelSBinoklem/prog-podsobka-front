@@ -72,6 +72,8 @@ export default {
     "./plugins/mixins/validation.js",
 
     '~plugins/env',
+    '~plugins/event-bus',
+    '~plugins/components-globally',
     '~plugins/i18n',
     '~plugins/axios',
     '~plugins/fontawesome',
