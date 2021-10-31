@@ -5,15 +5,15 @@ import * as types from '../mutation-types'
 // state
 export const state = {
   menuCollapsed: String(Cookies.get('interface.menu.collapsed')) === 'true',
-  priorityCopyTypeCode: Cookies.getJSON('interface.priorityCopyTypeCode') || {},
+  priorityCopyTypeCode: Cookies.get('interface.priorityCopyTypeCode') || {},
   hashGroups: {},
   navHashes: [],
-  filterPlugins: Cookies.getJSON('interface.filterPlugins') || {},
-  filterMenuNavPlugins: Cookies.getJSON('interface.filterMenuNavPlugins') || null,
-  filterCatsMenuNavPlugins: Cookies.getJSON('interface.filterCatsMenuNavPlugins') || null,
+  filterPlugins: Cookies.get('interface.filterPlugins') || {},
+  filterMenuNavPlugins: Cookies.get('interface.filterMenuNavPlugins') || null,
+  filterCatsMenuNavPlugins: Cookies.get('interface.filterCatsMenuNavPlugins') || null,
   cardsOrListPlugins: 'cards',
   curListCategory: null,
-  showTour: Cookies.getJSON('interface.showTour') || {},
+  showTour: Cookies.get('interface.showTour') || {},
 }
 
 // getters

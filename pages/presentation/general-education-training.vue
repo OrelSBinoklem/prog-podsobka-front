@@ -39,11 +39,9 @@
 
     metaInfo () {
       //todo-orel перевод
-      const { appName } = window.config
-
       return {
         title: 'Обучение основам',
-        titleTemplate: `${appName} - %s`
+        titleTemplate: `${process.env.appName} - %s`
       }
     },
 

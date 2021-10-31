@@ -73,7 +73,7 @@ export default {
   },
 
   data: () => ({
-    appName: window.config.appName
+    appName: process.env.appName
   }),
 
   computed: mapGetters({
