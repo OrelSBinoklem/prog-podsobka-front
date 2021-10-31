@@ -65,7 +65,7 @@
     </div>
 
     <div class="container mt-4">
-      <child/>
+      <nuxt />
     </div>
 
     <v-tour-overlay name="myTour" :steps="steps"></v-tour-overlay>

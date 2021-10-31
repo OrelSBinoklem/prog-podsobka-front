@@ -1,5 +1,5 @@
 <template>
-  <child/>
+  <nuxt />
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import store from '~/store'
 import VueI18n from 'vue-i18n'
+
 import moment from 'moment'
 
 Vue.use(VueI18n)
@@ -9,6 +9,14 @@ const i18n = new VueI18n({
   locale: 'ru',
   messages: {}
 })
+
+export default async ({ app, store }) => {
+  if (process.client) {
+    await loadMessages(store.getters['lang/locale'])
+  }
+
+  app.i18n = i18n
+}
 
 /**
  * @param {String} locale
@@ -25,9 +33,3 @@ export async function loadMessages (locale) {
     i18n.locale = locale
   }
 }
-
-;(async function () {
-  await loadMessages(store.getters['lang/locale'])
-})()
-
-export default i18n

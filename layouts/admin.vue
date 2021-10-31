@@ -8,7 +8,7 @@
     </SidebarMenuWidgets>
 
     <div class="main-layout__content">
-      <child/>
+      <nuxt />
     </div>
     <notifications></notifications>
   </div>
