@@ -134,7 +134,7 @@ export default {
 
     curPluginUrl() {
       if(_.hasIn(this, 'data.material.meta_data.plugin_file') && !!this.data.material.meta_data.plugin_file)
-        return '/storage' + this.data.material.meta_data.plugin_file;
+        return this.$env.storageUrl + this.data.material.meta_data.plugin_file;
       else
         return null;
     },

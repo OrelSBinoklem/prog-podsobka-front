@@ -54,7 +54,7 @@
                     .form-control.d-none(:class="{ 'is-invalid': form.errors.has('icon_data') }")
                     has-error(:form='form', field='icon_data')
                     .icon-img-card(v-if="!!form.icon")
-                      img(:src="'/storage' + form.icon")
+                      img(:src="$env.storageUrl + form.icon")
                       b-button.btn-icon-delete(
                         v-if="!!form.icon || !!form.icon_data"
                         variant='outline-danger'

@@ -5,12 +5,12 @@
     li.item(v-for="item in items" :title="item.name" :class="[curItemCube === item ? 'hover' : '', item.class]")
       .item-shadow
       .item-cube
-        .item-front: img(v-if="!!item.icon" :src="'/storage' + item.icon")
+        .item-front: img(v-if="!!item.icon" :src="$env.storageUrl + item.icon")
         .sub-menu-visualezed
           span(v-for="item in item.children" :class="{hover: curItem === item}") {{item.name}}
       ul.sub-menu(@mouseenter="onMouseenterCube(item)" @mouseleave="onMouseleaveCube")
         li.sub-item(v-for="item in item.children" @mouseenter="onMouseenter(item)" @mouseleave="onMouseleave")
-          router-link(v-if='item.is_router != false', :to='__getRouterData(item)', active-class='active')
+          nuxt-link(v-if='item.is_router != false', :to='__getRouterData(item)', active-class='active')
           a(v-else='', :href='item.path')
 
 
@@ -40,7 +40,7 @@ export default {
   },
 
   computed: {
-
+    storageUrl: () => process.env.storageUrl,
   },
 
   beforeMount() {
@@ -49,10 +49,6 @@ export default {
 
   async mounted () {
     console.log(this.items)
-  },
-
-  beforeDestroy() {
-
   },
 
   methods: {

@@ -10,7 +10,7 @@
           <img
             class="nav-menu-icon-img"
             v-if="!!level1.icon"
-            :src="'/storage' + level1.icon"
+            :src="$env.storageUrl + level1.icon"
             alt=""
           >
         </div>

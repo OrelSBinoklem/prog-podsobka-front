@@ -7,6 +7,7 @@ export default {
 
   env: {
     apiUrl: process.env.API_URL || process.env.APP_URL + '/api',
+    storageUrl: process.env.STORAGE_URL || process.env.APP_URL + '/storage',
     appName: process.env.APP_NAME || 'Laravel Nuxt',
     appLocale: process.env.APP_LOCALE || 'ru',
     githubAuth: !!process.env.GITHUB_CLIENT_ID
@@ -70,6 +71,7 @@ export default {
     "./plugins/mixins/user.js",
     "./plugins/mixins/validation.js",
 
+    '~plugins/env',
     '~plugins/i18n',
     '~plugins/axios',
     '~plugins/fontawesome',

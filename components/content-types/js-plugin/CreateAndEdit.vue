@@ -129,8 +129,8 @@
               </div>
               <div class="col-6">
                 <div class="plugin-file-path" v-if="!!form.meta_fields.plugin_file">
-                  <a :href="'/storage' + form.meta_fields.plugin_file" target="_blank" @click.prevent="downloadFile('/storage' + form.meta_fields.plugin_file)">
-                    <span>{{'/storage' + form.meta_fields.plugin_file}}</span>
+                  <a :href="$env.storageUrl + form.meta_fields.plugin_file" target="_blank" @click.prevent="downloadFile($env.storageUrl + form.meta_fields.plugin_file)">
+                    <span>{{$env.storageUrl + form.meta_fields.plugin_file}}</span>
                     <fa icon="file-archive" />
                   </a>
                   <b-button class="btn-icon-delete" v-if="!!form.meta_fields.plugin_file || !!form.meta_fields.plugin_file_data" variant="outline-danger" @click="onDeleteFilePlugin">

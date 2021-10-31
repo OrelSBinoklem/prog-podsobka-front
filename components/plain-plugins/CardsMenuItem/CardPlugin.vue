@@ -13,20 +13,20 @@
           //Табы
           li(v-for='tab in visibleTabs' :class='{active: tab === curTab}')
             button(@click='onSelectPlugin(tab)')
-              img(v-if="!!tab.icon" :src="'/storage' + tab.icon")
+              img(v-if="!!tab.icon" :src="$env.storageUrl + tab.icon")
               .abbreviation(v-else) {{getAbbreviation(tab.name)}}
 
           //Дополнительные табы
           li(v-if='hasMore' :class="{active: isCurTabMore}" ref="more")
             button(@click="showMore")
               template(v-if="isCurTabMore")
-                img(v-if="!!curTab.icon" :src="'/storage' + curTab.icon")
+                img(v-if="!!curTab.icon" :src="$env.storageUrl + curTab.icon")
                 .abbreviation(v-else) {{getAbbreviation(curTab.name)}}
               .icon-more: fa(:icon="['far', 'caret-square-down']" size="sm")
             .tabs-select-more(v-if="openedMoreTabs")
               .tabs-select-more-item(v-for='tab in moreTabs' :class='{active: tab === curTab}')
                 button(@click='onSelectPlugin(tab)')
-                  img(v-if="!!tab.icon" :src="'/storage' + tab.icon")
+                  img(v-if="!!tab.icon" :src="$env.storageUrl + tab.icon")
             .tabs-name-more(v-if="openedMoreTabs")
               .tabs-name-more-item(v-for='tab in moreTabs' :class='{active: tab === curTab}')
                 button(@click='onSelectPlugin(tab)')
@@ -57,12 +57,12 @@
                     router-link(v-if='tab.is_router', :to='__getRouterData(tab)', active-class='active')
                       span.list-name-link-wrap-ineer(@click="onChangePage")
                         span.list-icon(v-if="!!tab.icon")
-                          img(:src="'/storage' + tab.icon")
+                          img(:src="$env.storageUrl + tab.icon")
                         span.list-name(:class="{'ml-0': !tab.icon}") {{ tab.name }}
                     a(v-else='', :href='tab.path')
                       span.list-name-link-wrap-ineer(@click="onChangePage")
                         span.list-icon(v-if="!!tab.icon")
-                          img(:src="'/storage' + tab.icon")
+                          img(:src="$env.storageUrl + tab.icon")
                         span.list-name(:class="{'ml-0': !tab.icon}") {{ tab.name }}
                 template(v-if="!!tab.material")
                   .list-desc {{tab.material.description_short}}

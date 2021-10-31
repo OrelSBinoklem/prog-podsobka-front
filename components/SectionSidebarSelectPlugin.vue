@@ -12,7 +12,7 @@
           :title="item.title"
         >
           <router-link class="nav-menu-one-col-icon" :to="item.is_router ? __getRouterData(item) : {path: item.path}" active-class="active">
-            <img class="nav-menu-icon-img" v-if="!!item.icon" :src="'/storage' + item.icon" alt="">
+            <img class="nav-menu-icon-img" v-if="!!item.icon" :src="$env.storageUrl + item.icon" alt="">
           </router-link>
         </div>
       </template>
