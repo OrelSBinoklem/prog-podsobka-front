@@ -1,7 +1,6 @@
 import $ from 'jquery'
 import _ from 'lodash'
 import { mapGetters } from 'vuex'
-import axios from "axios/index";
 
 export const mixinCreateAndEdit = {
   components: {
@@ -96,16 +95,16 @@ export const mixinCreateAndEdit = {
     },
 
     __reloadCategories() {
-      axios
-        .get('/api/admin/categories')
+      this.$axios
+        .get('/admin/categories')
         .then(response => {
           this.categories = this.__setTreeIndent(response.data)
         }).catch(err => (console.log(err)))
     },
 
     __reloadTags() {
-      axios
-        .get('/api/admin/tags')
+      this.$axios
+        .get('/admin/tags')
         .then(response => {
           this.tags = response.data
         }).catch(err => (console.log(err)))

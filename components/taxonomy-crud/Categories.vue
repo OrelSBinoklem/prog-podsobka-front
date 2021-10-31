@@ -89,7 +89,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import * as th from 'tree-helper'
 
   import {mixin} from './mixin'
@@ -128,7 +127,7 @@
           })
         })(this.items, null)
 
-        axios.put('/api/admin/categories/items-update-tree', {data: result})
+        this.$axios.put('/admin/categories/items-update-tree', {data: result})
       },
 
       async onDeleteItem () {
@@ -137,7 +136,7 @@
             this.$root.$emit('bv::hide::modal', 'modal-delete-category')
             this.$root.$emit('bv::show::modal','modal-delete-category-what-new-parent')
           } else {
-            await axios.delete('/api/admin/categories/' + this.curItem.id, {
+            await this.$axios.delete('/admin/categories/' + this.curItem.id, {
               data: {
                 new_parent: null
               }
@@ -146,14 +145,14 @@
             this.__reloadItems()
           }
         } else {
-          await axios.delete('/api/admin/categories/' + this.curItem.id)
+          await this.$axios.delete('/admin/categories/' + this.curItem.id)
           this.$root.$emit('bv::hide::modal', 'modal-delete-category')
           this.__reloadItems()
         }
       },
 
       async onDeleteItemParentNull () {
-        await axios.delete('/api/admin/categories/' + this.curItem.id, {
+        await this.$axios.delete('/admin/categories/' + this.curItem.id, {
           data: {
             new_parent: null
           }
@@ -162,7 +161,7 @@
       },
 
       async onDeleteItemParentParent () {
-        await axios.delete('/api/admin/categories/' + this.curItem.id, {
+        await this.$axios.delete('/admin/categories/' + this.curItem.id, {
           data: {
             new_parent: this.curItem.parent_id
           }
@@ -171,7 +170,7 @@
       },
 
       async onDeleteItemNested () {
-        await axios.delete('/api/admin/categories/' + this.curItem.id, {
+        await this.$axios.delete('/admin/categories/' + this.curItem.id, {
           data: {
             delete_children: true
           }

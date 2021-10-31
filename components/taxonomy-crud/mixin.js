@@ -1,5 +1,4 @@
 import Form from 'vform'
-import axios from 'axios'
 import * as th from 'tree-helper'
 
 export const mixin = {
@@ -11,8 +10,8 @@ export const mixin = {
   },
 
   mounted: function () {
-    axios
-      .get('/api/admin/' + this.type)
+    this.$axios
+      .get('/admin/' + this.type)
       .then(response => {
         var items = response.data
         if(this.type == 'categories') {
@@ -106,8 +105,8 @@ export const mixin = {
     },
 
     __reloadItems() {
-      axios
-        .get('/api/admin/' + this.type)
+      this.$axios
+        .get('/admin/' + this.type)
         .then(response => {
           var items = response.data
           if(this.type == 'categories') {

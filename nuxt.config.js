@@ -73,8 +73,19 @@ export default {
     '~plugins/i18n',
     '~plugins/axios',
     '~plugins/fontawesome',
-    //??'~plugins/nuxt-client-init',
-    { src: '~plugins/bootstrap', mode: 'client' }
+    { src: '~plugins/bootstrap', mode: 'client' },
+    '~plugins/vuetable-2',
+    '~plugins/glyphicons',
+    '~plugins/snotify',
+    '~plugins/vue-ctk-date-time-picker',
+    '~plugins/vue-draggable-nested-tree',
+    '~plugins/emmet',
+    '~plugins/vue-clipboard2',
+    '~plugins/vue-slick',
+    '~plugins/liquor-tree',
+    '~plugins/vue-affix',
+    '~plugins/v-markdown-editor',
+    '~plugins/vue-tour',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -93,6 +104,7 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  //todo в plugins уже есть назначение базового пути!!!
   axios: {
     baseURL: process.env.API_URL || process.env.APP_URL + '/api'
   },

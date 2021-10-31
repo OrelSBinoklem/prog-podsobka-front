@@ -350,7 +350,6 @@
 <script>
   import Vue from 'vue'
   import Form from 'vform'
-  import axios from 'axios'
   //import objectToFormData from 'object-to-formdata'
   import moment from 'moment'
   import { mapGetters } from 'vuex'
@@ -590,7 +589,8 @@
       },
 
       downloadFile (url) {
-        axios.get(url, { responseType: 'blob' })
+        //todo возможно нужно удалить префикс api из пути точнее обойти както префикс уже заданный в axios
+        this.$axios.get(url, { responseType: 'blob' })
           .then(({ data }) => {
             const blob = new Blob([data], { type: 'application/zip' })
             let link = document.createElement('a')

@@ -24,8 +24,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
-
     export default {
         middleware: ['auth', 'not-verified'],
 
@@ -42,7 +40,7 @@
             async resend () {
                 this.resendProcessed = true
                 // Resend letter
-                const { data } = await axios.post(`/api/email/resend`)
+                const { data } = await this.$axios.post(`/email/resend`)
 
                 this.resended = data.resended === true;
 

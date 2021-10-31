@@ -12,7 +12,6 @@
 
 <script>
   import Form from 'vform'
-  import axios from 'axios'
   import _ from 'lodash'
   import Categories from "../../components/taxonomy-crud/Categories";
   import Tags from "../../components/taxonomy-crud/Tags";

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Cookies from 'js-cookie'
 import _ from 'lodash'
 import * as types from './mutation-types'

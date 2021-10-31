@@ -146,7 +146,6 @@
 <script>
   import Vue from 'vue';
   import Form from 'vform'
-  import axios from 'axios'
   import _ from 'lodash'
   import MenuItemsEdit from "../../components/menu-items/MenuItemsEdit";
   import MenuItemsAdd from "../../components/menu-items/MenuItemsAdd";
@@ -166,8 +165,8 @@
     },
 
     mounted: function () {
-      axios
-        .get('/api/admin/menus')
+      this.$axios
+        .get('/admin/menus')
         .then(response => {
           this.menus = response.data
 
@@ -256,7 +255,7 @@
       },
 
       async deleteMenu() {
-        await axios.delete('/api/admin/menus/' + this.currentMenu.id)
+        await this.$axios.delete('/admin/menus/' + this.currentMenu.id)
 
         await this._reloadMenus()
 
@@ -270,8 +269,8 @@
       },
 
       async _reloadMenus() {
-        await axios
-          .get('/api/admin/menus')
+        await this.$axios
+          .get('/admin/menus')
           .then(response => {
             this.menus = response.data
           }).catch(err => (console.log(err)))
@@ -354,8 +353,8 @@
 
       __reloadItems() {
         if(this.currentMenu) {
-          axios
-            .get('/api/admin/menus/' + (this.currentMenu.id) + '/items')
+          this.$axios
+            .get('/admin/menus/' + (this.currentMenu.id) + '/items')
             .then(response => {
               for(let type in types) {
                 types[type].loadSpecialData(this.$store, response.data)
@@ -382,8 +381,8 @@
 
       currentMenu: function (menu) {
         if(menu) {
-          axios
-            .get('/api/admin/menus/' + (menu.id) + '/items')
+          this.$axios
+            .get('/admin/menus/' + (menu.id) + '/items')
             .then(response => {
               for(let type in types) {
                 types[type].loadSpecialData(this.$store, response.data)

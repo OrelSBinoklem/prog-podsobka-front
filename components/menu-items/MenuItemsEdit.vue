@@ -31,7 +31,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import * as th from 'tree-helper'
   import MenuItem from "./MenuItem"
 
@@ -112,7 +111,7 @@
           })
         })(this.items, null)
 
-        axios.put('/api/admin/menus/' + (this.menuId) + '/items-update-tree', {data: result})
+        this.$axios.put('/admin/menus/' + (this.menuId) + '/items-update-tree', {data: result})
       },
 
       onUpdate () {
@@ -124,7 +123,7 @@
           this.curDeleteItemData = e
           this.$root.$emit('bv::show::modal','modal-delete-menu-item')
         } else {
-          await axios.delete('/api/admin/menus/' + (e.menu_id) + '/items/' + e.item_id)
+          await this.$axios.delete('/admin/menus/' + (e.menu_id) + '/items/' + e.item_id)
           this.$emit('delete')
         }
       },
@@ -135,7 +134,7 @@
           this.$root.$emit('bv::hide::modal', 'modal-delete-menu-item')
           this.$root.$emit('bv::show::modal','modal-delete-menu-item-what-new-parent')
         } else {
-          await axios.delete('/api/admin/menus/' + (this.curDeleteItemData.menu_id) + '/items/' + this.curDeleteItemData.item_id,{
+          await this.$axios.delete('/admin/menus/' + (this.curDeleteItemData.menu_id) + '/items/' + this.curDeleteItemData.item_id,{
             data: {
               new_parent: null
             }
@@ -146,7 +145,7 @@
       },
 
       async onDeleteMenuItemParentNull () {
-        await axios.delete('/api/admin/menus/' + (this.curDeleteItemData.menu_id) + '/items/' + this.curDeleteItemData.item_id,{
+        await this.$axios.delete('/admin/menus/' + (this.curDeleteItemData.menu_id) + '/items/' + this.curDeleteItemData.item_id,{
           data: {
             new_parent: null
           }
@@ -158,7 +157,7 @@
       },
 
       async onDeleteMenuItemParentParent () {
-        await axios.delete('/api/admin/menus/' + (this.curDeleteItemData.menu_id) + '/items/' + this.curDeleteItemData.item_id,{
+        await this.$axios.delete('/admin/menus/' + (this.curDeleteItemData.menu_id) + '/items/' + this.curDeleteItemData.item_id,{
           data: {
             new_parent: this.curDeleteItemData.parent_id
           }
@@ -170,7 +169,7 @@
       },
 
       async onDeleteMenuItemNested () {
-        await axios.delete('/api/admin/menus/' + (this.curDeleteItemData.menu_id) + '/items/' + this.curDeleteItemData.item_id,{
+        await this.$axios.delete('/admin/menus/' + (this.curDeleteItemData.menu_id) + '/items/' + this.curDeleteItemData.item_id,{
           data: {
             delete_children: true
           }

@@ -74,7 +74,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import * as th from 'tree-helper'
 
   import {mixin} from './mixin'
@@ -102,7 +101,7 @@
     // watch: {},
     methods: {
       async deleteItem () {
-        await axios.delete('/api/admin/categories/' + this.curItem.id)
+        await this.$axios.delete('/admin/categories/' + this.curItem.id)
         this.$root.$emit('bv::hide::modal', 'modal-delete-tag')
         this.__reloadItems()
       },
@@ -112,7 +111,7 @@
       },
 
       async onDeleteItem () {
-        await axios.delete('/api/admin/tags/' + this.curItem.id)
+        await this.$axios.delete('/admin/tags/' + this.curItem.id)
         this.$root.$emit('bv::hide::modal', 'modal-delete-tag')
         this.__reloadItems()
       }

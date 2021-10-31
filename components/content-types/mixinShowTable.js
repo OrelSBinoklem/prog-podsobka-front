@@ -1,5 +1,4 @@
 import { mapGetters } from 'vuex'
-import axios from 'axios'
 
 export const mixinShowTable = {
   props: {
@@ -68,7 +67,7 @@ export const mixinShowTable = {
       this.$router.push({ name: 'admin.content.create', params: { type: this.type.slug } })
     },
     async deletePlugin() {
-      await axios.delete('/api/admin/content/' + this.type.slug + '/' + this.curEditPlugin.id)
+      await this.$axios.delete('/admin/content/' + this.type.slug + '/' + this.curEditPlugin.id)
       this.$refs.vuetable.reload()
     },
     __arrJoinQuotes (arr) {

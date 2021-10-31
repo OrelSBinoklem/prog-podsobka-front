@@ -129,7 +129,6 @@
 <script>
   import Vue from 'vue'
   import Form from 'vform'
-  import axios from 'axios'
   import moment from 'moment'
   import { mapGetters } from 'vuex'
 
@@ -262,7 +261,7 @@
           this.updateRoleForm.name = data.name
           this.updateRoleForm.immunity = data.immunity
           this.$root.$emit('bv::show::modal','modal-update-role')
-          var res = await axios.get('/api/admin/roles')
+          var res = await this.$axios.get('/admin/roles')
           this.roles = res.data
         }
       },
@@ -273,7 +272,7 @@
       },
 
       async deleteRole() {
-        await axios.delete('/api/admin/roles/' + this.curEditRole.id)
+        await this.$axios.delete('/admin/roles/' + this.curEditRole.id)
         this.$refs.vuetable.reload()
       },
 

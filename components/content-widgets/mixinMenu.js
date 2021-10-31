@@ -1,5 +1,4 @@
 import { mapGetters } from 'vuex'
-import axios from 'axios'
 
 export const mixinMenu = {
   metaInfo () {

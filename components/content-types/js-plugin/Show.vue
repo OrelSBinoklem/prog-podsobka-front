@@ -90,7 +90,6 @@
 <script>
   import Vue from 'vue'
   import Form from 'vform'
-  import axios from 'axios'
   import moment from 'moment'
 
   import {mixinShow} from '../mixinShow'
@@ -118,8 +117,8 @@
       },
 
       __loadItem (slug) {
-        axios
-          .get('/api/content/js-plugin', {params: {slug}})
+        this.$axios
+          .get('/content/js-plugin', {params: {slug}})
           .then(response => {
             this.data = response.data
             this.$emit('load', this.data)

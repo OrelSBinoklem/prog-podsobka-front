@@ -1,4 +1,3 @@
-import axios from 'axios'
 import _ from 'lodash'
 var qs = require('qs');
 
@@ -27,8 +26,8 @@ export const types = {
         slugs[item.meta_data.content_type].push(item.meta_data.material_slug)
       })
 
-      await axios
-        .get('/api/content/get-some-items', {
+      await this.$axios
+        .get('/content/get-some-items', {
           params: {'material-slugs': slugs},
           'paramsSerializer': function(params) {
             return qs.stringify(params)

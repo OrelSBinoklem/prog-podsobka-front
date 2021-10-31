@@ -48,7 +48,6 @@
 const qs = require('qs');
 import $ from 'jquery'
 import _ from 'lodash'
-import axios from 'axios'
 import Vue from 'vue'
 import vuescroll from 'vuescroll';
 import {getRenderedMenuDataMixin} from '../menu-items/get-rendered-menu-data-mixin';
@@ -180,8 +179,8 @@ export default {
       })
 
       if(temp.length) {
-        return axios
-          .get('/api/content/get-short-by-tax', {
+        return this.$axios
+          .get('/content/get-short-by-tax', {
             params: {'material-slugs': slugs},
             'paramsSerializer': function(params) {
               return qs.stringify(params)

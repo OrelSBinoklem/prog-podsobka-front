@@ -24,8 +24,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
-
     export default {
         middleware: ['auth', 'not-verified'],
 
@@ -43,7 +41,7 @@
 
         methods: {
             async verify () {
-                const { data } = await axios.get(`/api/email/verify/${this.$route.params.id}`, {params: {...this.$route.query}})
+                const { data } = await this.$axios.get(`/email/verify/${this.$route.params.id}`, {params: {...this.$route.query}})
 
                 // Fetch the user.
                 await this.$store.dispatch('auth/fetchUser')

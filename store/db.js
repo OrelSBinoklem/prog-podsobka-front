@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Cookies from 'js-cookie'
 import * as types from './mutation-types'
 
@@ -52,26 +51,26 @@ export const mutations = {
 export const actions = {
   async loadCategories ({ commit, state }) {
     if(state.categories === null) {
-      let response = await axios.get('/api/admin/categories')
+      let response = await this.$axios.get('/admin/categories')
       commit(types.REFRESH_CATEGORIES, response.data)
     }
   },
 
   async refreshCategories ({ commit }, payload) {
-    let response = await axios.get('/api/admin/categories')
+    let response = await this.$axios.get('/admin/categories')
     commit(types.REFRESH_CATEGORIES, response.data)
   },
 
   loadCategoriesPublic: _.throttle(async ({ commit, state }, payload) => {
     if(state.categoriesPublic === null) {
-      let response = await axios.get('/api/categories');
+      let response = await this.$axios.get('/categories');
       commit(types.REFRESH_CATEGORIES_PUBLIC, response.data);
       commit(types.REFRESH_CATEGORIES_PUBLIC_TREE, appHelper.flatToTree(response.data));
     }
   }, 1000),
 
   refreshCategoriesPublic: _.throttle(async ({ commit }, payload) => {
-    let response = await axios.get('/api/categories')
+    let response = await this.$axios.get('/categories')
     commit(types.REFRESH_CATEGORIES_PUBLIC, response.data);
     commit(types.REFRESH_CATEGORIES_PUBLIC_TREE, appHelper.flatToTree(response.data));
   }, 1000),
@@ -92,8 +91,8 @@ export const actions = {
     }
 
     if(nedeedLoad) {
-      let response = await axios
-        .get('/api/content/get-all-tax-ppmm', {
+      let response = await this.$axios
+        .get('/content/get-all-tax-ppmm', {
           params: {'material-slugs': payload},
           'paramsSerializer': function(params) {
             return qs.stringify(params)

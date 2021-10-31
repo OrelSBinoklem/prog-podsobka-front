@@ -293,7 +293,6 @@
 <script>
   import Vue from 'vue'
   import Form from 'vform'
-  import axios from 'axios'
   import moment from 'moment'
   import { mapGetters } from 'vuex'
 
@@ -542,7 +541,7 @@
           this.updateUserForm.bans_expired_at = data.is_banned === true && data.ban_expired_at !== true ? data.ban_expired_at.format("DD-MM-YYYY HH:mmZ") : data.is_banned
           this.updateUserForm.roles_ids = this.__getKeysRoles(data.roles)
           this.$root.$emit('bv::show::modal','modal-update-user')
-          var res = await axios.get('/api/admin/roles')
+          var res = await this.$axios.get('/admin/roles')
           this.roles = res.data
         }
       },
@@ -550,12 +549,12 @@
       async onAddUser () {
         this.addUserForm.reset()
         this.$root.$emit('bv::show::modal','modal-create-user')
-        var res = await axios.get('/api/admin/roles')
+        var res = await this.$axios.get('/admin/roles')
         this.roles = res.data
       },
 
       async deleteUser() {
-        await axios.delete('/api/admin/users/' + this.curEditUser.id)
+        await this.$axios.delete('/admin/users/' + this.curEditUser.id)
         this.$refs.vuetable.reload()
       },
 
@@ -582,7 +581,7 @@
       },
 
       async groupBan() {
-        await axios.patch('/api/admin/users/group-ban', {
+        await this.$axios.patch('/admin/users/group-ban', {
           ids: this.$refs.vuetable.selectedTo,
           expired_at: this.dateTimeBanUsers
         })
@@ -590,7 +589,7 @@
       },
 
       async groupDelete() {
-        await axios.patch('/api/admin/users/group-delete', {
+        await this.$axios.patch('/admin/users/group-delete', {
           ids: this.$refs.vuetable.selectedTo
         })
         this.$refs.vuetable.reload()

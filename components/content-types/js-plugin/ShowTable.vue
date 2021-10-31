@@ -58,7 +58,6 @@
 <script>
   import Vue from 'vue'
   import Form from 'vform'
-  import axios from 'axios'
   import moment from 'moment'
 
   import {mixinShowTable} from '../mixinShowTable'

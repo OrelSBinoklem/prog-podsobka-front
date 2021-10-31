@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import _ from 'lodash'
 
   import TypeJSPluginShow from './js-plugin/ShowTable'

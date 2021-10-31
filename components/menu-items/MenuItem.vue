@@ -90,7 +90,6 @@
 <script>
   import Form from 'vform'
   import objectToFormData from 'object-to-formdata'
-  import axios from 'axios'
 
   import {types} from "./types-data"
 

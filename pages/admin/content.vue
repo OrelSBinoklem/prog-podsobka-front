@@ -33,7 +33,6 @@
 
 <script>
   import Form from 'vform'
-  import axios from 'axios'
   import _ from 'lodash'
   import ContentCreateAndEdit from "../../components/content-types/ContentCreateAndEdit";
   import {contentTypes} from "../../components/content-types/contentTypes";
@@ -106,8 +105,8 @@
       },
 
       __loadEditItem (slug, id) {
-        axios
-          .get('/api/admin/content/' + slug + '/get-one', {params: {id}})
+        this.$axios
+          .get('/admin/content/' + slug + '/get-one', {params: {id}})
           .then(response => {
             this.editData = response.data
           }).catch(err => (console.log(err)))

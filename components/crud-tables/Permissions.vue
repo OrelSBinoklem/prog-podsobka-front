@@ -111,7 +111,6 @@
 <script>
   import Vue from 'vue'
   import Form from 'vform'
-  import axios from 'axios'
   import moment from 'moment'
   import { mapGetters } from 'vuex'
 
@@ -234,7 +233,7 @@
           this.updatePermissionForm.reset()
           this.updatePermissionForm.name = data.name
           this.$root.$emit('bv::show::modal','modal-update-permission')
-          var res = await axios.get('/api/admin/permissions')
+          var res = await this.$axios.get('/admin/permissions')
           this.permissions = res.data
         }
       },
@@ -245,7 +244,7 @@
       },
 
       async deletePermission() {
-        await axios.delete('/api/admin/permissions/' + this.curEditPermission.id)
+        await this.$axios.delete('/admin/permissions/' + this.curEditPermission.id)
         this.$refs.vuetable.reload()
       },
 

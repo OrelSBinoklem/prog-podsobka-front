@@ -1,5 +1,4 @@
 import { mapGetters } from 'vuex'
-import axios from 'axios'
 import _ from 'lodash'
 
 export const getRenderedMenuDataMixin = {
@@ -11,13 +10,14 @@ export const getRenderedMenuDataMixin = {
 
   methods: {
     async getDataMenuBySlug(slug) {
-      await axios
-        .get('/api/menus/' + slug)
+      await this.$axios
+        .get('/menus/' + slug)
         .then(response => {
           this.menuData = this.__treeSortedByOrder(this.__flatToTreeArray(response.data))
         }).catch(err => (console.log(err)))
     },
 
+    //todo вынести в хелперы
     __flatToTreeArray(arr) {
       var r = []
       arr.forEach(function (a) {
@@ -38,6 +38,7 @@ export const getRenderedMenuDataMixin = {
       return r;
     },
 
+    //todo вынести в хелперы
     __treeSortedByOrder(arr) {
       arr = _.orderBy(arr, ['order'], ['asc']);
       arr.forEach((a) => {

@@ -44,7 +44,6 @@
 
 <script>
   import Vue from 'vue'
-  import axios from 'axios'
   import _ from 'lodash'
   import vuescroll from 'vuescroll';
 
@@ -54,8 +53,8 @@
     name: "CrudTablePermissionsRoles",
 
     mounted: function () {
-      axios
-        .get('/api/admin/roles/get-permission-role-table')
+      this.$axios
+        .get('/admin/roles/get-permission-role-table')
         .then(response => {
           this.permissions = response.data.permissions
           this.roles = _.map(response.data.roles, (role) => {
@@ -96,7 +95,7 @@
         if(!(role_id + "-" + permission_id in this.curEditRolRepRelations)) {
           this.curEditRolRepRelations[role_id + "-" + permission_id] = true
 
-          axios.patch('/api/admin/roles/change-permission-role', {
+          this.$axios.patch('/admin/roles/change-permission-role', {
             attach: event !== null,
             role_id: role_id,
             permission_id: permission_id

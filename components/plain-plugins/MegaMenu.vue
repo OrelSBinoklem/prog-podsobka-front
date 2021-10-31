@@ -39,7 +39,6 @@ const qs = require('qs');
 import Vue from 'vue';
 import $ from 'jquery';
 import _ from 'lodash';
-import axios from 'axios';
 
 import {menuHelpers} from '../menu-items/menu-helpers';
 
@@ -237,8 +236,8 @@ export default {
       });
 
       if(temp.length) {
-        return axios
-          .get('/api/content/get-items-ppmm', {
+        return this.$axios
+          .get('/content/get-items-ppmm', {
             params: {'material-slugs': slugs},
             'paramsSerializer': function(params) {
               return qs.stringify(params)
