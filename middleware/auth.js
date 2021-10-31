@@ -1,9 +1,6 @@
-import store from '~/store'
-
-export default async (to, from, next) => {
-  if (!store.getters['auth/check']) {
-    next({ name: 'login' })
-  } else {
-    next()
+export default function ({ store, redirect }) {
+  // If the user is not authenticated
+  if (!store.state.authenticated) {
+    return redirect('/login')
   }
 }

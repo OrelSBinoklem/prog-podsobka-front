@@ -6,7 +6,7 @@ Vue.use(Router)
 
 const page = path => () => import(`~/pages/${path}`).then(m => m.default || m)
 
-export default [
+const routes =  [
   { path: '/', name: 'home', component: page('~/pages/home') },
 
   { path: '/login', name: 'login', component: page('~/pages/auth/login') },

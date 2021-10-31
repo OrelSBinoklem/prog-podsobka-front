@@ -1,13 +1,7 @@
-import store from '~/store'
-
-export default async (to, from, next) => {
-    if (!store.getters['auth/check'] || store.getters['auth/checkOAuth']) {
-        next()
-    } else {
-        if(store.getters['auth/checkVerified']) {
-            next()
-        } else {
-            next({name: 'email.resend'})
+export default async function ({ store, redirect }) {
+    if (store.state.authenticated && !store.getters['auth/checkOAuth']) {
+        if(!store.getters['auth/checkVerified']) {
+            return redirect({name: 'email.resend'})
         }
     }
 }

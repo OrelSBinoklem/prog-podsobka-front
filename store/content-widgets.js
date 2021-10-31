@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import _ from 'lodash'
-import * as types from '../mutation-types'
+import * as types from './mutation-types'
 
 // state
 export const state = {

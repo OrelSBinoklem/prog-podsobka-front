@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import * as types from '../mutation-types'
+import * as types from './mutation-types'
 
 // state
 export const state = {

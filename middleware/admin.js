@@ -1,9 +1,6 @@
-import store from '~/store'
-
-export default (to, from, next) => {
-  if (store.getters['auth/user'].role !== 'admin') {
-    next({ name: 'home' })
-  } else {
-    next()
+export default function ({ store, redirect }) {
+  // If the user is not authenticated
+  if (!store.state.authenticated) {
+    return redirect('/login')
   }
 }
