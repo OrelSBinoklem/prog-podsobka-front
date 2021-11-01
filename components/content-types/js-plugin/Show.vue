@@ -35,7 +35,7 @@
             </div>
             <div class="link-columns">
               <div class="link-row" v-if="!!curSubItems" v-for="item in curSubItems">
-                <router-link v-if="item.is_router" :to="__getRouterData(item)" active-class="active"><span @click="onChangePage">{{ item.name }}</span></router-link><a v-else="" :href="item.path" @click="onChangePage">{{ item.name }}</a></div>
+                <nuxt-link v-if="item.is_router" :to="__getRouterData(item)" active-class="active"><span @click="onChangePage">{{ item.name }}</span></nuxt-link><a v-else="" :href="item.path" @click="onChangePage">{{ item.name }}</a></div>
             </div>-->
 
             <!--Обучающий материал-->

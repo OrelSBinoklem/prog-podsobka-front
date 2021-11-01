@@ -72,6 +72,7 @@ export default {
     "./plugins/mixins/validation.js",
 
     '~plugins/env',
+    '~plugins/helpers',
     '~plugins/event-bus',
     '~plugins/components-globally',
     '~plugins/i18n',

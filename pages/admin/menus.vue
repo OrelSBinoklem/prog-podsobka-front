@@ -24,7 +24,7 @@
           <div class="col-2">
             <div class="list-group" v-if="menus.length">
               <template v-for="(menu, i) in menus">
-                <router-link :to="{ name: 'admin.menu.slug', params: { slug: menu.slug }}" active-class="active" class="list-group-item list-group-item-action" :key="menu.slug">{{menu.name}}</router-link>
+                <nuxt-link :to="{ name: 'admin.menu.slug', params: { slug: menu.slug }}" active-class="active" class="list-group-item list-group-item-action" :key="menu.slug">{{menu.name}}</nuxt-link>
               </template>
             </div>
             <div v-else class="alert alert-primary" role="alert">

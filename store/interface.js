@@ -1,18 +1,19 @@
 import Cookies from 'js-cookie'
+import _ from 'lodash'
 import * as types from './mutation-types'
 
 // state
 export const state = {
   menuCollapsed: String(Cookies.get('interface.menu.collapsed')) === 'true',
-  priorityCopyTypeCode: Cookies.get('interface.priorityCopyTypeCode') || {},
+  priorityCopyTypeCode: Cookies.get('interface.priorityCopyTypeCode') && JSON.parse(Cookies.get('interface.priorityCopyTypeCode')) || {},
   hashGroups: {},
   navHashes: [],
-  filterPlugins: Cookies.get('interface.filterPlugins') || {},
+  filterPlugins: Cookies.get('interface.filterPlugins') && JSON.parse(Cookies.get('interface.filterPlugins')) || {},
   filterMenuNavPlugins: Cookies.get('interface.filterMenuNavPlugins') || null,
   filterCatsMenuNavPlugins: Cookies.get('interface.filterCatsMenuNavPlugins') || null,
   cardsOrListPlugins: 'cards',
   curListCategory: null,
-  showTour: Cookies.get('interface.showTour') || {},
+  showTour: Cookies.get('interface.showTour') && JSON.parse(Cookies.get('interface.showTour')) || {},
 }
 
 // getters
@@ -39,7 +40,7 @@ export const mutations = {
 
   [types.SET_PRIORITY_COPY_TYPE_CODE_STATE] (state, payload) {
     state.priorityCopyTypeCode = payload
-    Cookies.set('interface.priorityCopyTypeCode', payload, { expires: 7 })
+    Cookies.set('interface.priorityCopyTypeCode', JSON.stringify(payload), { expires: 7 })
   },
 
   [types.SET_HASH_GROUPS] (state, payload) {
@@ -52,7 +53,12 @@ export const mutations = {
 
   [types.SET_FILTER_PLUGINS] (state, filterPlugins) {
     state.filterPlugins = filterPlugins;
-    Cookies.set('interface.filterPlugins', filterPlugins, { expires: 7 })
+    Cookies.set('interface.filterPlugins', JSON.stringify(filterPlugins), { expires: 7 })
+  },
+
+  [types.SET_PARAMS_FILTER_PLUGINS] (state, data) {
+    _.merge(state.filterPlugins, data)
+    Cookies.set('interface.filterPlugins', JSON.stringify(state.filterPlugins), { expires: 7 })
   },
 
   [types.SET_FILTER_MENU_NAV_PLUGINS] (state, cat) {
@@ -75,49 +81,21 @@ export const mutations = {
 
   [types.SET_SHOW_VTOUR] (state, payload) {
     state.showTour[payload.slug] = payload.show;
-    Cookies.set('interface.showTour', state.showTour, { expires: 7 })
+    Cookies.set('interface.showTour', JSON.stringify(state.showTour), { expires: 7 })
   },
 }
 
 // actions
 export const actions = {
-  saveMenuCollapsed ({ commit, dispatch }, payload) {
-    commit(types.SET_MENU_COLLAPSED, payload)
-  },
-
-  savePriorityCopyTypeCode ({ commit, dispatch }, payload) {
-    commit(types.SET_PRIORITY_COPY_TYPE_CODE_STATE, payload)
-  },
-
-  setHashGroups ({ commit, dispatch }, payload) {
-    commit(types.SET_HASH_GROUPS, payload)
-  },
-
-  setNavHashes ({ commit, dispatch }, payload) {
-    commit(types.SET_NAV_HASHES, payload)
-  },
-
-  saveFilterPlugins ({ commit, dispatch }, payload) {
-    commit(types.SET_FILTER_PLUGINS, payload)
-  },
-
-  saveFilterMenuNavPlugins ({ commit, dispatch }, payload) {
-    commit(types.SET_FILTER_MENU_NAV_PLUGINS, payload)
-  },
-
-  saveFilterCatsMenuNavPlugins ({ commit, dispatch }, payload) {
-    commit(types.SET_FILTER_CATS_MENU_NAV_PLUGINS, payload)
-  },
-
-  saveCardsOrListPlugins ({ commit, dispatch }, payload) {
-    commit(types.SET_CARDS_OR_LIST_PLUGINS, payload)
-  },
-
-  saveCurListCategory ({ commit, dispatch }, payload) {
-    commit(types.SET_CUR_LIST_CATEGORY_PLUGINS, payload)
-  },
-
-  saveShowTour ({ commit, dispatch }, payload) {
-    commit(types.SET_SHOW_VTOUR, payload)
-  },
+  saveMenuCollapsed            ({ commit, dispatch }, payload) {commit(types.SET_MENU_COLLAPSED, payload)},
+  savePriorityCopyTypeCode     ({ commit, dispatch }, payload) {commit(types.SET_PRIORITY_COPY_TYPE_CODE_STATE, payload)},
+  setHashGroups                ({ commit, dispatch }, payload) {commit(types.SET_HASH_GROUPS, payload)},
+  setNavHashes                 ({ commit, dispatch }, payload) {commit(types.SET_NAV_HASHES, payload)},
+  saveFilterPlugins            ({ commit, dispatch }, payload) {commit(types.SET_FILTER_PLUGINS, payload)},
+  saveParamsFilterPlugins      ({ commit, dispatch }, payload) {commit(types.SET_PARAMS_FILTER_PLUGINS, payload)},
+  saveFilterMenuNavPlugins     ({ commit, dispatch }, payload) {commit(types.SET_FILTER_MENU_NAV_PLUGINS, payload)},
+  saveFilterCatsMenuNavPlugins ({ commit, dispatch }, payload) {commit(types.SET_FILTER_CATS_MENU_NAV_PLUGINS, payload)},
+  saveCardsOrListPlugins       ({ commit, dispatch }, payload) {commit(types.SET_CARDS_OR_LIST_PLUGINS, payload)},
+  saveCurListCategory          ({ commit, dispatch }, payload) {commit(types.SET_CUR_LIST_CATEGORY_PLUGINS, payload)},
+  saveShowTour                 ({ commit, dispatch }, payload) {commit(types.SET_SHOW_VTOUR, payload)},
 }

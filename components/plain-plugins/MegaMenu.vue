@@ -190,14 +190,6 @@ export default {
       if(!!result && 'data' in result) {
         let data = result['data'];
 
-        //Нормализуем категории и тэги в материалах
-        _.values(data).forEach((el) => {
-          _.values(el).forEach((el) => {
-            el.tags = _.keyBy(el.tags, 'slug')
-            el.categories = _.keyBy(el.categories, 'slug')
-          })
-        });
-
         //К пунктам меню привязываем материалы
         flat.forEach((el) => {
           let type = el.meta_data.content_type;

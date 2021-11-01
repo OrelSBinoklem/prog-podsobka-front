@@ -94,10 +94,17 @@ export default {
 
   methods: {
     onSelectGridMenu(val) {
-      this.selected.code_type = this.filter.code_type = val.row === 'all' || val.row === null ? null : this.data.gridMenu.rows[val.row].slug;
-      this.selected.framework = this.filter.framework = val.col === 'all' || val.col === null ? null : this.data.gridMenu.cols[val.col].slug;
+      this.$store.dispatch('interface/saveParamsFilterPlugins', {
+        selected: {
+          code_type: val.row === 'all' || val.row === null ? null : this.data.gridMenu.rows[val.row].slug,
+          framework: val.col === 'all' || val.col === null ? null : this.data.gridMenu.cols[val.col].slug
+        },
+        filter: {
+          code_type: val.row === 'all' || val.row === null ? null : this.data.gridMenu.rows[val.row].slug,
+          framework: val.col === 'all' || val.col === null ? null : this.data.gridMenu.cols[val.col].slug
+        }
+      });
 
-      this.__saveStateFilters();
       this.$emit('change', this.filter);
     },
 
@@ -124,16 +131,19 @@ export default {
     },
 
     onSelectOption(cat, val) {
-      Vue.set(this.selected, cat, val);
-      Vue.set(this.filter, cat, val);
+      this.$store.dispatch('interface/saveParamsFilterPlugins', {
+        selected: (() => {let r = {}; r[cat] = val; return r})(),
+        filter: (() => {let r = {}; r[cat] = val; return r})()
+      });
 
-      this.__saveStateFilters();
       this.$emit('change', this.filter);
     },
 
     onClear() {
-      _.keysIn(this.selected).forEach((key) => {this.selected[key] = null});
-      _.keysIn(this.filter).forEach((key) => {this.filter[key] = null});
+      this.$store.dispatch('interface/saveParamsFilterPlugins', {
+        selected: (() => {let r = {}; _.keysIn(this.selected).forEach((key) => {r[key] = null}); return r})(),
+        filter:   (() => {let r = {}; _.keysIn(this.filter  ).forEach((key) => {r[key] = null}); return r})()
+      });
 
       this.$emit('change', this.filter);
     },

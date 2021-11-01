@@ -9,9 +9,9 @@
                     <div class="alert alert-success" role="alert">
                         {{ $t('email_verified') }}
                     </div>
-                    <router-link :to="{ name: 'home' }" class="btn btn-primary">
+                    <nuxt-link :to="{ name: 'home' }" class="btn btn-primary">
                         {{ $t('go_home') }}
-                    </router-link>
+                    </nuxt-link>
                 </template>
                 <template v-else>
                     <div class="alert alert-danger" role="alert">

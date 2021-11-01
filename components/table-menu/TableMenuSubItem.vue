@@ -1,11 +1,10 @@
 <template>
 
   <div class="table-menu-sub">
-    <router-link
+    <button
       class="link"
-      :to="item.is_router ? __getRouterData(item) : {path: item.path}"
       active-class="active"
-      @click.native.prevent="(e) => {onChangePage(item.slug, e)}"
+      @click.prevent="(e) => {onChangePage(item.slug, e)}"
     >
       <img
         class="nav-menu-icon-img"
@@ -14,7 +13,7 @@
         alt=""
         :title="item.name"
       >
-    </router-link>
+    </button>
     <div
       class="sub-item"
       v-if="!!item.children && !!item.children.length"
@@ -41,24 +40,6 @@ export default {
     item: {type: Object},
   },
 
-  data() {
-    return {
-      
-    }
-  },
-
-  computed: {
-
-  },
-
-  beforeMount() {
-
-  },
-
-  mounted () {},
-
-  beforeDestroy() {},
-
   methods: {
     onChangePage(slug, e) {
       this.$emit('change-page', slug, e)
@@ -68,8 +49,6 @@ export default {
       return {...item.router}
     }
   },
-
-  watch: {}
 }
 </script>
 
@@ -84,6 +63,9 @@ export default {
     align-items: center;
     width: 40px;
     height: 40px;
+    padding: 0;
+    border: none;
+    background: transparent;
   }
 
   .nav-menu-icon-img {

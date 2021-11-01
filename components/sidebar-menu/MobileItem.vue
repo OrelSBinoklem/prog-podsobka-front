@@ -1,9 +1,9 @@
 <template>
     <div class="vsm-item mobile-item" v-if="item" :class="[{'open-item' : item.child}, {'active-item' : active}, {'parent-active-item' : childActive}]">
         <template v-if="!item.child">
-            <router-link class="vsm-link" v-if="isRouterLink" :to="item.href">
+            <nuxt-link class="vsm-link" v-if="isRouterLink" :to="item.href">
                 {{item.title.translate ? $t(item.title.translate) : item.title}}
-            </router-link>
+            </nuxt-link>
             <a class="vsm-link" v-else :href="item.href">
                 {{item.title.translate ? $t(item.title.translate) : item.title}}
             </a>

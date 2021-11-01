@@ -11,7 +11,7 @@
           <div class="col-2">
             <div class="list-group" v-if="contentTypes.length">
               <template v-for="(content_type, i) in contentTypes">
-                <router-link :to="{ name: 'admin.content.type', params: { type: content_type.slug }}" active-class="active" class="list-group-item list-group-item-action" :key="content_type.slug">{{content_type.name}}</router-link>
+                <nuxt-link :to="{ name: 'admin.content.type', params: { type: content_type.slug }}" active-class="active" class="list-group-item list-group-item-action" :key="content_type.slug">{{content_type.name}}</nuxt-link>
               </template>
             </div>
             <div v-else class="alert alert-primary" role="alert">

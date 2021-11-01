@@ -269,16 +269,6 @@
         if(!!result && 'data' in result) {
           let data = result['data'];
 
-          //Нормализуем категории и тэги в материалах
-          _.values(data).forEach((el) => {
-            _.values(el).forEach((el) => {
-              if(Array.isArray(el.tags))
-                el.tags = _.keyBy(el.tags, 'slug')
-              if(Array.isArray(el.categories))
-                el.categories = _.keyBy(el.categories, 'slug')
-            })
-          });
-
           //К пунктам меню привязываем категории и тэги
           flat.forEach((el) => {
             let type = el.meta_data.content_type;

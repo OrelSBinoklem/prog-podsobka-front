@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white pl-5 ml-3">
-    <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
+    <nuxt-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
       {{ appName }}
-    </router-link>
+    </nuxt-link>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
       <span class="navbar-toggler-icon"/>
@@ -25,10 +25,10 @@
             {{ user.name }}
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
+            <nuxt-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
               <fa icon="cog" fixed-width/>
               {{ $t('settings') }}
-            </router-link>
+            </nuxt-link>
 
             <div class="dropdown-divider"/>
             <a href="#" class="dropdown-item pl-3" @click.prevent="logout">
@@ -40,14 +40,14 @@
         <!-- Guest -->
         <template v-else>
           <li class="nav-item">
-            <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
+            <nuxt-link :to="{ name: 'login' }" class="nav-link" active-class="active">
               {{ $t('login') }}
-            </router-link>
+            </nuxt-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
+            <nuxt-link :to="{ name: 'register' }" class="nav-link" active-class="active">
               {{ $t('register') }}
-            </router-link>
+            </nuxt-link>
           </li>
         </template>
       </ul>

@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import * as types from './mutation-types'
+import _ from "lodash";
 
 const qs = require('qs');
 
@@ -61,7 +62,7 @@ export const actions = {
     commit(types.REFRESH_CATEGORIES, response.data)
   },
 
-  loadCategoriesPublic: _.throttle(async ({ commit, state }, payload) => {
+  loadCategoriesPublic: _.throttle(async function ({ commit, state }, payload) {
     if(state.categoriesPublic === null) {
       let response = await this.$axios.get('/categories');
       commit(types.REFRESH_CATEGORIES_PUBLIC, response.data);
@@ -75,7 +76,7 @@ export const actions = {
     commit(types.REFRESH_CATEGORIES_PUBLIC_TREE, appHelper.flatToTree(response.data));
   }, 1000),
 
-  loadTaxPublicPPMM: _.throttle(async ({ commit, state }, payload) => {
+  loadTaxPublicPPMM: _.throttle(async function ({ commit, state }, payload) {
     let nedeedLoad = false;
     if(state.taxPublicPPMM === null) {
       nedeedLoad = true;
@@ -98,7 +99,18 @@ export const actions = {
             return qs.stringify(params)
           },
         });
-      commit(types.LOAD_TAX_PUBLIC_PPMM, response.data);
+
+      let data = response.data;
+
+      //Нормализуем категории и тэги в материалах
+      _.values(data).forEach((el) => {
+        _.values(el).forEach((el) => {
+          el.tags = _.keyBy(el.tags, 'slug')
+          el.categories = _.keyBy(el.categories, 'slug')
+        })
+      });
+
+      commit(types.LOAD_TAX_PUBLIC_PPMM, data);
     }
   }, 1000),
 }

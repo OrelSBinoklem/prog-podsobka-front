@@ -39,9 +39,9 @@
                 {{ $t('remember_me') }}
               </checkbox>
 
-              <router-link :to="{ name: 'password.request' }" class="small ml-auto my-auto">
+              <nuxt-link :to="{ name: 'password.request' }" class="small ml-auto my-auto">
                 {{ $t('forgot_password') }}
-              </router-link>
+              </nuxt-link>
             </div>
           </div>
 

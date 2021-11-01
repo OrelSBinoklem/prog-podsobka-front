@@ -2,10 +2,10 @@
     <div class="vsm-item" :class="[{'open-item' : show}, {'active-item' : active}, {'parent-active-item' : childActive}]">
         <template v-if="!item.child">
             <template v-if="isRouterLink">
-                <router-link class="vsm-link" :to="item.href">
+                <nuxt-link class="vsm-link" :to="item.href">
                     <i v-if="item.icon" class="vsm-icon"><fa :icon="item.icon" fixed-width/></i>
                     <span class="vsm-title">{{item.title.translate ? $t(item.title.translate) : item.title}}</span>
-                </router-link>
+                </nuxt-link>
             </template>
             <template v-else>
                 <a class="vsm-link" :href="item.href">

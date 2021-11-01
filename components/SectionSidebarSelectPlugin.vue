@@ -11,9 +11,9 @@
           @click.prevent="(e) => {onSelectFilter(item.slug, e)}"
           :title="item.title"
         >
-          <router-link class="nav-menu-one-col-icon" :to="item.is_router ? __getRouterData(item) : {path: item.path}" active-class="active">
+          <button class="nav-menu-one-col-icon">
             <img class="nav-menu-icon-img" v-if="!!item.icon" :src="$env.storageUrl + item.icon" alt="">
-          </router-link>
+          </button>
         </div>
       </template>
 
@@ -228,6 +228,7 @@ export default {
   }
 
   .nav-menu-one-col-icon {
+    border: none;
     padding: 0;
     outline: none;
     position: relative;
@@ -238,6 +239,7 @@ export default {
     height: 40px;
     font-size: 18px;
     opacity: 0.5;
+    background: transparent;
     filter: grayscale(1);
     transition: opacity 0.2s ease-in-out, filter 0.2s ease-in-out;
   }
