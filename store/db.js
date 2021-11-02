@@ -5,13 +5,13 @@ import _ from "lodash";
 const qs = require('qs');
 
 // state
-export const state = {
+export const state = () => ({
   categories: null,
   categoriesPublic: null,
   categoriesPublicTree: null,
 
   taxPublicPPMM: null
-}
+})
 
 // getters
 export const getters = {

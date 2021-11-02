@@ -2,14 +2,14 @@ import Cookies from 'js-cookie'
 import * as types from './mutation-types'
 
 // state
-export const state = {
+export const state = () => ({
   locale: process.env.appLocale,
   locales: {
     en: 'EN',
     'zh-CN': '中文',
     ru: 'RU'
   }
-}
+})
 
 // getters
 export const getters = {

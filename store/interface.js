@@ -3,18 +3,18 @@ import _ from 'lodash'
 import * as types from './mutation-types'
 
 // state
-export const state = {
+export const state = () => ({
   menuCollapsed: String(Cookies.get('interface.menu.collapsed')) === 'true',
-  priorityCopyTypeCode: Cookies.get('interface.priorityCopyTypeCode') && JSON.parse(Cookies.get('interface.priorityCopyTypeCode')) || {},
+  priorityCopyTypeCode: appHelper.isJsonString(Cookies.get('interface.priorityCopyTypeCode')) && JSON.parse(Cookies.get('interface.priorityCopyTypeCode')) || {},
   hashGroups: {},
   navHashes: [],
-  filterPlugins: Cookies.get('interface.filterPlugins') && JSON.parse(Cookies.get('interface.filterPlugins')) || {},
+  filterPlugins: appHelper.isJsonString(Cookies.get('interface.filterPlugins')) && JSON.parse(Cookies.get('interface.filterPlugins')) || {},
   filterMenuNavPlugins: Cookies.get('interface.filterMenuNavPlugins') || null,
-  filterCatsMenuNavPlugins: Cookies.get('interface.filterCatsMenuNavPlugins') || null,
+  filterCatsMenuNavPlugins: appHelper.isJsonString(Cookies.get('interface.filterCatsMenuNavPlugins')) && JSON.parse(Cookies.get('interface.filterCatsMenuNavPlugins')) || [],
   cardsOrListPlugins: 'cards',
   curListCategory: null,
-  showTour: Cookies.get('interface.showTour') && JSON.parse(Cookies.get('interface.showTour')) || {},
-}
+  showTour: appHelper.isJsonString(Cookies.get('interface.showTour')) && JSON.parse(Cookies.get('interface.showTour')) || {},
+})
 
 // getters
 export const getters = {
@@ -68,7 +68,7 @@ export const mutations = {
 
   [types.SET_FILTER_CATS_MENU_NAV_PLUGINS] (state, cat) {
     state.filterCatsMenuNavPlugins = cat;
-    Cookies.set('interface.filterCatsMenuNavPlugins', cat, { expires: 7 })
+    Cookies.set('interface.filterCatsMenuNavPlugins', JSON.stringify(cat), { expires: 7 })
   },
 
   [types.SET_CARDS_OR_LIST_PLUGINS] (state, cardsOrListPlugins) {

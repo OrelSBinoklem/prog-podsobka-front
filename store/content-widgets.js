@@ -3,13 +3,13 @@ import _ from 'lodash'
 import * as types from './mutation-types'
 
 // state
-export const state = {
+export const state = () => ({
   selected: null,
   widgetsTypes: null,
   widgetsTypesObject: null,
 
   selectedCopyCode: null
-}
+})
 
 // getters
 export const getters = {

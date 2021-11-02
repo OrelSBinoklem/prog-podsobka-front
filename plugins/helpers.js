@@ -94,4 +94,19 @@ global.appHelper = {
         }, Object.create(null))
         return r;
     },
+
+    /**
+     * Проверяет на валидность JSON строку
+     * @param str
+     * @returns {boolean}
+     */
+    isJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+        return true;
+    }
 };

@@ -2,11 +2,11 @@ import Cookies from 'js-cookie'
 import * as types from './mutation-types'
 
 // state
-export const state = {
+export const state = () => ({
   adminMaterials: null,
   clientMenus: {},
   itemsRelatedData: {}
-}
+})
 
 // getters
 export const getters = {
