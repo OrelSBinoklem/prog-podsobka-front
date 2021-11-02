@@ -79,7 +79,7 @@ export const mixin = {
      * @private
      */
     __getTopPositionItemByScroll(domItem) {
-      return $(domItem).position().top - $(this.$refs.container).find(' > .__vuescroll > .__native').scrollTop();
+      return $(domItem).position().top - $(this.$refs.container).find(' > .__vuescroll > .__panel').scrollTop();
     },
 
     /**
@@ -120,6 +120,4 @@ export const mixin = {
       return 0;
     }
   },
-
-  watch: {},
 }

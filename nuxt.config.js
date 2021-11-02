@@ -74,6 +74,7 @@ export default {
     '~plugins/env',
     '~plugins/helpers',
     '~plugins/event-bus',
+    '~plugins/f8',
     '~plugins/components-globally',
     '~plugins/i18n',
     '~plugins/axios',

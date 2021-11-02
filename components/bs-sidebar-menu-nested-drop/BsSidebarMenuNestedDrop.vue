@@ -53,14 +53,6 @@ export default {
     }
   },
 
-  mounted() {
-
-  },
-
-  computed: {
-
-  },
-
   methods: {
     onScroll() {
       this.topHoverItem = this.__getTopPositionItemByScroll(this.domActive);
@@ -73,10 +65,6 @@ export default {
       this.$emit('change-page');
     },
   },
-
-  watch: {
-
-  }
 }
 </script>
 
