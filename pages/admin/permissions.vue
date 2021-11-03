@@ -37,22 +37,6 @@
       'crud-table-roles': Roles,
       'crud-table-permissions': Permissions
     },
-
-    data: () => ({
-
-    }),
-
-    computed: {
-
-    },
-
-    methods: {
-
-    },
-
-    watch: {
-
-    }
   }
 </script>
 

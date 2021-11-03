@@ -11,7 +11,7 @@ export default {
 
   computed: {
     githubAuth: () => process.env.githubAuth,
-    url: () => `/api/oauth/github`
+    url: () => process.env.apiUrl + `/oauth/github`
   },
 
   mounted () {

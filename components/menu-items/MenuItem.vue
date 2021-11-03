@@ -191,7 +191,7 @@
     //watch: {},
     methods: {
       async onAddItem () {
-        await this.form.submit('post', '/api/admin/menus/' + (this.menuId) + '/items', {
+        await this.form.submit('post', this.$env.apiUrl + '/admin/menus/' + (this.menuId) + '/items', {
           transformRequest: [function (data, headers) {
             return objectToFormData(data)
           }],
@@ -205,7 +205,7 @@
       },
 
       async onUpdateItem () {
-        await this.form.submit('post', '/api/admin/menus/' + (this.menuId) + '/items/' + this.data.id, {
+        await this.form.submit('post', this.$env.apiUrl + '/admin/menus/' + (this.menuId) + '/items/' + this.data.id, {
           transformRequest: [function (data, headers) {
             return objectToFormData(data);
           }],

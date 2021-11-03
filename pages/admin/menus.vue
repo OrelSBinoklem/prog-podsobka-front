@@ -232,7 +232,7 @@
       async addMenu() {
         var slug = this.addMenuForm.slug
 
-        await this.addMenuForm.post('/api/admin/menus')
+        await this.addMenuForm.post(this.$env.apiUrl + '/admin/menus', {headers: { Authorization: this.$auth.getToken('local') }})
 
         this.$root.$emit('bv::hide::modal','modal-create-menu')
 
@@ -242,7 +242,7 @@
       },
 
       async updateMenu() {
-        await this.updateMenuForm.put('/api/admin/menus/' + this.currentMenu.id)
+        await this.updateMenuForm.put(this.$env.apiUrl + '/admin/menus/' + this.currentMenu.id, {headers: { Authorization: this.$auth.getToken('local') }})
         this.$root.$emit('bv::hide::modal','modal-update-menu')
         await this._reloadMenus()
         let updatedMenu = _.find(this.menus, {'id': this.currentMenu.id});

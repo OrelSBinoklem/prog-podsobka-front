@@ -131,12 +131,6 @@ export default {
       this.form['g-recaptcha-response'] = token
       this.recaptchaId = recaptchaId
     }
-  },
-
-  watch: {
-    sitekey(val) {
-      console.log(val)
-    }
   }
 }
 </script>

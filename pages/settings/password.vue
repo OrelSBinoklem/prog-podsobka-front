@@ -50,7 +50,7 @@ export default {
 
   methods: {
     async update () {
-      await this.form.patch('/api/settings/password')
+      await this.form.patch(this.$env.apiUrl + '/settings/password', {headers: { Authorization: this.$auth.getToken('local') }})
 
       this.form.reset()
     }

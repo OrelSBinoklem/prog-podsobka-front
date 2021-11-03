@@ -98,14 +98,6 @@
 
     mixins: [mixin],
 
-    props: {
-
-    },
-
-    mounted: function () {
-
-    },
-
     data() {
       return {
         type: 'categories',

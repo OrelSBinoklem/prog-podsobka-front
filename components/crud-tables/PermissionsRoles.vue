@@ -86,10 +86,6 @@
       }
     }),
 
-    computed: {
-
-    },
-
     methods: {
       async onChange (event, role_id, permission_id) {
         if(!(role_id + "-" + permission_id in this.curEditRolRepRelations)) {
@@ -117,10 +113,6 @@
         }
       }
     },
-
-    watch: {
-
-    }
   }
 </script>
 

@@ -101,7 +101,7 @@ export default {
     async register () {
       // Register the user.
       const { data } = await new Promise((resolve, reject) => {
-        this.form.post('/api/register')
+        this.form.post(this.$env.apiUrl + '/register')
           .then(response => {resolve(response)})
           .catch(error => {
             if (this.form['g-recaptcha-response'] != '') {
@@ -114,7 +114,7 @@ export default {
       this.form.recaptcha_verified = true;
 
       // Log in the user.
-      const { data: { token } } = await this.form.post('/api/login')
+      const { data: { token } } = await this.form.post(this.$env.apiUrl + '/login')
 
       // Save the token.
       this.$store.dispatch('auth/saveToken', { token })

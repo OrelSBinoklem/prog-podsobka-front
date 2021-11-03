@@ -75,7 +75,7 @@ export const mixin = {
     },
 
     async addItem() {
-      await this.addForm.post('/api/admin/' + this.type)
+      await this.addForm.post(this.$env.apiUrl + '/admin/' + this.type, {headers: { Authorization: this.$auth.getToken('local') }})
       this.$root.$emit('bv::hide::modal','modal-create-' + this.typeOne)
       this.__reloadItems()
     },
@@ -90,7 +90,7 @@ export const mixin = {
     },
 
     async updateItem() {
-      await this.updateForm.put('/api/admin/' + this.type + '/' + this.curItem.id)
+      await this.updateForm.put(this.$env.apiUrl + '/admin/' + this.type + '/' + this.curItem.id, {headers: { Authorization: this.$auth.getToken('local') }})
       this.$root.$emit('bv::hide::modal','modal-update-' + this.typeOne)
       this.__reloadItems()
     },

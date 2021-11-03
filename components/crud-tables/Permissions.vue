@@ -250,13 +250,13 @@
       },
 
       async addPermission() {
-        await this.addPermissionForm.post('/api/admin/permissions')
+        await this.addPermissionForm.post(this.$env.apiUrl + '/admin/permissions', {headers: { Authorization: this.$auth.getToken('local') }})
         this.$root.$emit('bv::hide::modal','modal-create-permission')
         this.$refs.vuetable.reload()
       },
 
       async updatePermission() {
-        await this.updatePermissionForm.put('/api/admin/permissions/' + this.curEditPermission.id)
+        await this.updatePermissionForm.put(this.$env.apiUrl + '/admin/permissions/' + this.curEditPermission.id, {headers: { Authorization: this.$auth.getToken('local') }})
         this.$root.$emit('bv::hide::modal','modal-update-permission')
         this.$refs.vuetable.reload()
       },

@@ -544,7 +544,7 @@
 
       async addOrUpdatePlugin () {
         if(this.edit) {
-          await this.form.submit('post', '/api/admin/content/js-plugin/' + this.data.id, {
+          await this.form.submit('post', this.$env.apiUrl + '/admin/content/js-plugin/' + this.data.id, {
             transformRequest: [function (data, headers) {
               return objectToFormData(data)
             }],
@@ -559,7 +559,7 @@
             id: this.data.id
           })
         } else {
-          await this.form.submit('post', '/api/admin/content/js-plugin', {
+          await this.form.submit('post', this.$env.apiUrl + '/admin/content/js-plugin', {
             transformRequest: [function (data, headers) {
               return objectToFormData(data)
             }],

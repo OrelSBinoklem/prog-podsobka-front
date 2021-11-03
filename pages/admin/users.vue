@@ -562,13 +562,13 @@
       },
 
       async addUser() {
-        await this.addUserForm.post('/api/admin/users')
+        await this.addUserForm.post(this.$env.apiUrl + '/admin/users', {headers: { Authorization: this.$auth.getToken('local') }})
         this.$root.$emit('bv::hide::modal','modal-create-user')
         this.$refs.vuetable.reload()
       },
 
       async updateUser() {
-        await this.updateUserForm.put('/api/admin/users/' + this.curEditUser.id)
+        await this.updateUserForm.put(this.$env.apiUrl + '/admin/users/' + this.curEditUser.id, {headers: { Authorization: this.$auth.getToken('local') }})
         this.$root.$emit('bv::hide::modal','modal-update-user')
         this.$refs.vuetable.reload()
       },

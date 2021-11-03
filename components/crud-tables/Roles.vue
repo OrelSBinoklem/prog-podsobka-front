@@ -278,13 +278,13 @@
       },
 
       async addRole() {
-        await this.addRoleForm.post('/api/admin/roles')
+        await this.addRoleForm.post(this.$env.apiUrl + '/admin/roles', {headers: { Authorization: this.$auth.getToken('local') }})
         this.$root.$emit('bv::hide::modal','modal-create-role')
         this.$refs.vuetable.reload()
       },
 
       async updateRole() {
-        await this.updateRoleForm.put('/api/admin/roles/' + this.curEditRole.id)
+        await this.updateRoleForm.put(this.$env.apiUrl + '/admin/roles/' + this.curEditRole.id, {headers: { Authorization: this.$auth.getToken('local') }})
         this.$root.$emit('bv::hide::modal','modal-update-role')
         this.$refs.vuetable.reload()
       },

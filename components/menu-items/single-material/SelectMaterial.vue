@@ -4,7 +4,7 @@
     b-modal#modal-select-material(:visible="open" @change="onChange" ref='modal-select-material' size="lg" title='Выберите материал')
       .vuetable-select-material(v-if="content_type !== null && open")
         vuetable(ref="vuetable"
-        :api-url='"/api/admin/content/" + content_type + "/get-table"'
+        :api-url='$env.apiUrl + "/admin/content/" + content_type + "/get-table"'
         pagination-path=''
         :fields='fields'
         :css='css'

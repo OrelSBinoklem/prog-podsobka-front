@@ -83,14 +83,6 @@
 
     mixins: [mixin],
 
-    props: {
-
-    },
-
-    mounted: function () {
-
-    },
-
     data() {
       return {
         type: 'tags',

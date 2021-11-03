@@ -62,7 +62,7 @@ export default {
 
   methods: {
     async update () {
-      const { data } = await this.form.patch('/api/settings/profile')
+      const { data } = await this.form.patch(this.$env.apiUrl + '/settings/profile', {headers: { Authorization: this.$auth.getToken('local') }})
 
       this.$store.dispatch('auth/updateUser', { user: data })
 

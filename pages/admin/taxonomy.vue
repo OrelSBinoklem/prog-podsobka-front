@@ -27,22 +27,6 @@
     components: {
       'categories-edit': Categories,
       'tags-edit': Tags,
-    },
-
-    data: () => ({
-
-    }),
-
-    computed: {
-
-    },
-
-    methods: {
-
-    },
-
-    watch: {
-
     }
   }
 </script>
