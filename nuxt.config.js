@@ -27,32 +27,13 @@ export default {
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      {
-        rel: "stylesheet",
-        href:
-            "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      },
-      {
-        rel: "stylesheet",
-        href:
-            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
-      }
+      {rel: "stylesheet", href: "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"},
+      {rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"}
     ],
     script: [
-      {
-        src: "https://code.jquery.com/jquery-3.3.1.slim.min.js",
-        type: "text/javascript"
-      },
-      {
-        src:
-            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js",
-        type: "text/javascript"
-      },
-      {
-        src:
-            "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js",
-        type: "text/javascript"
-      }
+      {src: "https://code.jquery.com/jquery-3.3.1.slim.min.js", type: "text/javascript"},
+      {src: "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js", type: "text/javascript"},
+      {src: "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js", type: "text/javascript"}
     ]
   },
 
@@ -75,6 +56,7 @@ export default {
     '~plugins/helpers',
     '~plugins/event-bus',
     '~plugins/f8',
+    '~plugins/disable-nuxt-redirect-errors',
     '~plugins/components-globally',
     '~plugins/i18n',
     '~plugins/axios',
@@ -127,7 +109,7 @@ export default {
           user: {
             url: "user",
             method: "get",
-            propertyName: "data"
+            propertyName: ""
           },
           logout: {
             url: "logout",
@@ -135,7 +117,9 @@ export default {
           }
         }
       }
-    }
+    },
+
+    redirect: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

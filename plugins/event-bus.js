@@ -1,4 +1,7 @@
 import Vue from "vue";
 
-let $eventBus = new Vue();
-Vue.prototype.$eventHub = $eventBus;
+export default async ({ app }, inject) => {
+    let $eventBus = new Vue();
+
+    inject('eventHub', Vue.observable($eventBus));
+}

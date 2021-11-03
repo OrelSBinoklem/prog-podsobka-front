@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-8 m-auto">
       <card :title="$t('login')">
-        <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+        <form @submit.stop.prevent="login" @keydown="form.onKeydown($event)">
           <!-- Email -->
           <div class="form-group row">
             <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import Form from 'vform'
 import LoginWithGithub from '~/components/LoginWithGithub'
 import Recaptcha from '~/components/Recaptcha'
@@ -94,9 +95,18 @@ export default {
     async login () {
       // Submit the form.
       const { data } = await new Promise((resolve, reject) => {
-        this.form.post('/api/login')
-          .then(response => {resolve(response)})
+        this.$auth.loginWith("local", {
+          data: this.form
+        })
+          .then(response => {
+            resolve(response);
+            // Redirect home.
+            this.$router.push({ name: 'admin.dashboard' });
+          })
           .catch(error => {
+            if (_.has(error, 'response.data.errors')) {
+              this.form.errors.set(error.response.data.errors);
+            }
             if (this.form['g-recaptcha-response'] != '') {
               this.form['g-recaptcha-response'] = ''
               window.grecaptcha.reset(this.recaptchaId)
@@ -104,18 +114,6 @@ export default {
             reject(error)
           })
       })
-
-      // Save the token.
-      this.$store.dispatch('auth/saveToken', {
-        token: data.token,
-        remember: this.remember
-      })
-
-      // Fetch the user.
-      await this.$store.dispatch('auth/fetchUser')
-
-      // Redirect home.
-      this.$router.push({ name: 'home' })
     },
 
     onCaptcha(token, recaptchaId) {

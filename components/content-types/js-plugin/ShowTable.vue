@@ -9,7 +9,7 @@
       </div>
       <div class="vuetable-js-plugin">
         <vuetable ref="vuetable"
-                  api-url="/api/admin/content/js-plugin/get-table"
+                  :api-url="$env.apiUrl + '/admin/content/js-plugin/get-table'"
                   pagination-path=""
                   :fields="fields"
                   :css="css"
@@ -17,6 +17,7 @@
                   :per-page="perPage"
                   @vuetable:pagination-data="onPaginationData"
                   :append-params="moreParams"
+                  :http-options="{ headers: { 'Authorization' : $auth.getToken('local') } }"
         >
           <template slot="actions" slot-scope="props">
             <div class="custom-actions">

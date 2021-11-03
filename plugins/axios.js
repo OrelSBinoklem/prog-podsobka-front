@@ -25,7 +25,7 @@ export default function({ app, $axios, store, redirect }) {
 	$axios.interceptors.response.use(response => {
 		if(/^\/admin\/?/gi.test(app.router.currentRoute.fullPath)) {
 			if(response.data.notification) {
-				$eventBus.$emit('open-modal', {
+				app.$eventHub.$emit('open-modal', {
 					type: response.data.notification.type ? response.data.notification.type : 'success',
 					title: response.data.notification.title ? response.data.notification.title : null,
 					message: response.data.notification.message
@@ -33,7 +33,7 @@ export default function({ app, $axios, store, redirect }) {
 			}
 
 			if(response.data.status) {
-				$eventBus.$emit('open-modal', {
+				app.$eventHub.$emit('open-modal', {
 					type: 'success',
 					title: null,
 					message: response.data.status
@@ -41,7 +41,7 @@ export default function({ app, $axios, store, redirect }) {
 			}
 
 			if(response.data.error) {
-				$eventBus.$emit('open-modal', {
+				app.$eventHub.$emit('open-modal', {
 					type: 'error',
 					title: null,
 					message: response.data.error
@@ -62,7 +62,7 @@ export default function({ app, $axios, store, redirect }) {
 				confirmButtonText: app.i18n.t('ok'),
 				cancelButtonText: app.i18n.t('cancel')
 			})
-		} else if (status === 401 && store.getters['auth/check']) {
+		} else if (status === 401 && store.getters['auth/authenticated']) {
 			Swal.fire({
 				icon: 'warning',
 				title: app.i18n.t('token_expired_alert_title'),
@@ -71,12 +71,12 @@ export default function({ app, $axios, store, redirect }) {
 				confirmButtonText: app.i18n.t('ok'),
 				cancelButtonText: app.i18n.t('cancel')
 			}).then(() => {
-				store.commit('auth/LOGOUT')
+				store.dispatch('auth/logout')
 
 				redirect({ name: 'login' })
 			})
 		} else {
-			$eventBus.$emit('open-modal', {
+			app.$eventHub.$emit('open-modal', {
 				type: 'error',
 				title: null,
 				message: error.response.data.message

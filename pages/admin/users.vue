@@ -32,7 +32,7 @@
           </div>
         </div>
         <vuetable ref="vuetable"
-                  api-url="/api/admin/users/get-table"
+                  :api-url="$env.apiUrl + '/admin/users/get-table'"
                   pagination-path="pagination"
                   :fields="fields"
                   :css="css"
@@ -41,6 +41,7 @@
                   data-path="mydata"
                   @vuetable:pagination-data="onPaginationData"
                   :append-params="moreParams"
+                  :http-options="{ headers: { 'Authorization' : $auth.getToken('local') } }"
         >
 
           <template slot="actions" slot-scope="props">
@@ -304,41 +305,57 @@
       return { title: this.$t('users') }
     },
 
-    data: () => ({
-      curEditUser: null,
-      roles: [],
-      filterText: '',
-      perPage: 10,
-      moreParams: {},
+    data() {
+      return {
+        curEditUser: null,
+        roles: [],
+        filterText: '',
+        perPage: 10,
+        moreParams: {},
 
-      addUserForm: new Form({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        roles_ids: []
-      }),
+        addUserForm: new Form({
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: '',
+          roles_ids: []
+        }),
 
-      updateUserForm: new Form({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        roles_ids: [],
-        bans_expired_at: false
-      }),
+        updateUserForm: new Form({
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: '',
+          roles_ids: [],
+          bans_expired_at: false
+        }),
 
-      dateTimeBanUsers: null,
+        dateTimeBanUsers: null,
 
-      css: {
-        tableClass: 'table table-striped table-bordered',
-        loadingClass: 'loading',
-        ascendingIcon: 'glyphicon glyphicon-chevron-up',
-        descendingIcon: 'glyphicon glyphicon-chevron-down',
-        handleIcon: 'glyphicon glyphicon-menu-hamburger',
-        pagination: {
-          infoClass: 'pull-left',
-          wrapperClass: 'vuetable-pagination pull-right',
+        css: {
+          tableClass: 'table table-striped table-bordered',
+          loadingClass: 'loading',
+          ascendingIcon: 'glyphicon glyphicon-chevron-up',
+          descendingIcon: 'glyphicon glyphicon-chevron-down',
+          handleIcon: 'glyphicon glyphicon-menu-hamburger',
+          pagination: {
+            infoClass: 'pull-left',
+            wrapperClass: 'vuetable-pagination pull-right',
+            activeClass: 'btn-primary',
+            disabledClass: 'disabled',
+            pageClass: 'btn btn-border',
+            linkClass: 'btn btn-border',
+            icons: {
+              first: '',
+              prev: '',
+              next: '',
+              last: '',
+            },
+          },
+        },
+
+        paginationCss: {
+          wrapperClass: 'pagination',
           activeClass: 'btn-primary',
           disabledClass: 'disabled',
           pageClass: 'btn btn-border',
@@ -348,97 +365,83 @@
             prev: '',
             next: '',
             last: '',
+          }
+        },
+
+        fields: [
+          {
+            name: 'id',
+            title: '#',
+            titleClass: 'text-center',
+            dataClass: 'text-right'
           },
-        },
-      },
-
-      paginationCss: {
-        wrapperClass: 'pagination',
-        activeClass: 'btn-primary',
-        disabledClass: 'disabled',
-        pageClass: 'btn btn-border',
-        linkClass: 'btn btn-border',
-        icons: {
-          first: '',
-          prev: '',
-          next: '',
-          last: '',
-        }
-      },
-
-      fields: [
-        {
-          name: 'id',
-          title: '#',
-          titleClass: 'text-center',
-          dataClass: 'text-right'
-        },
-        {
-          name: '__checkbox',
-          titleClass: 'text-center',
-          dataClass: 'text-center'
-        },
-        {
-          name: 'name',
-          title: 'Full Name',
-          titleClass: 'text-center',
-          dataClass: 'text-left',
-          sortField: 'name'
-        },
-        {
-          name: 'roles',
-          title: 'Роли',
-          titleClass: 'text-center',
-          dataClass: 'text-left',
-          callback: 'rolesLabel',
-          //sortField: 'roles'
-        },
-        {
-          name: 'email',
-          title: 'Email',
-          titleClass: 'text-center',
-          dataClass: 'text-left',
-          sortField: 'email'
-        },
-        {
-          name: 'ban_duration',
-          title: 'Banned',
-          titleClass: 'text-center',
-          dataClass: 'text-right',
-          callback: 'bannedLabel',
-          //sortField: 'email_verified_at'
-        },
-        {
-          name: 'email_verified_at',
-          title: 'Verified',
-          titleClass: 'text-center',
-          dataClass: 'text-right',
-          callback: 'verifiedLabel',
-          sortField: 'email_verified_at'
-        },
-        {
-          name: 'created_at',
-          title: 'Created',
-          titleClass: 'text-center',
-          dataClass: 'text-right',
-          callback: 'createdAtLabel',
-          sortField: 'created_at'
-        },
-        {
-          name: '__slot:actions',
-          title: 'Actions',
-          titleClass: 'text-center',
-          dataClass: 'text-center'
-        }
-      ],
-      sortOrder: [
-        {
-          field: 'name',
-          sortField: 'name',
-          direction: 'asc'
-        }
-      ]
-    }),
+          {
+            name: '__checkbox',
+            titleClass: 'text-center',
+            dataClass: 'text-center'
+          },
+          {
+            name: 'name',
+            title: 'Full Name',
+            titleClass: 'text-center',
+            dataClass: 'text-left',
+            sortField: 'name'
+          },
+          {
+            name: 'roles',
+            title: 'Роли',
+            titleClass: 'text-center',
+            dataClass: 'text-left',
+            callback: 'rolesLabel',
+            //sortField: 'roles'
+          },
+          {
+            name: 'email',
+            title: 'Email',
+            titleClass: 'text-center',
+            dataClass: 'text-left',
+            sortField: 'email'
+          },
+          {
+            name: 'ban_duration',
+            title: 'Banned',
+            titleClass: 'text-center',
+            dataClass: 'text-right',
+            callback: 'bannedLabel',
+            //sortField: 'email_verified_at'
+          },
+          {
+            name: 'email_verified_at',
+            title: 'Verified',
+            titleClass: 'text-center',
+            dataClass: 'text-right',
+            callback: 'verifiedLabel',
+            sortField: 'email_verified_at'
+          },
+          {
+            name: 'created_at',
+            title: 'Created',
+            titleClass: 'text-center',
+            dataClass: 'text-right',
+            callback: 'createdAtLabel',
+            sortField: 'created_at'
+          },
+          {
+            name: '__slot:actions',
+            title: 'Actions',
+            titleClass: 'text-center',
+            dataClass: 'text-center'
+          }
+        ],
+        sortOrder: [
+          {
+            field: 'name',
+            sortField: 'name',
+            direction: 'asc'
+          }
+        ]
+      }
+    },
 
     computed: {
       ...mapGetters({

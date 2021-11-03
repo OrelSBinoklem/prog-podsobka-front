@@ -24,10 +24,6 @@ export default {
 
   mixins: [menuHelpers],
 
-  components: {
-
-  },
-
   props: {
     items: {type: Array, required: true}
   },
@@ -41,14 +37,6 @@ export default {
 
   computed: {
     storageUrl: () => process.env.storageUrl,
-  },
-
-  beforeMount() {
-
-  },
-
-  async mounted () {
-    console.log(this.items)
   },
 
   methods: {
@@ -71,10 +59,6 @@ export default {
     __getRouterData(item) {
       return {...item.router};
     }
-  },
-
-  watch: {
-
   }
 }
 </script>
