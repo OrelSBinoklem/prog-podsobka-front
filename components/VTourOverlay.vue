@@ -76,15 +76,6 @@ export default {
     this.myCallbacks.onStart = this.onStart
   },
 
-  mounted () {
-
-  },
-  beforeDestroy () {
-
-  },
-  computed: {
-
-  },
   methods: {
     onStart (i) {
       this.$emit('start', this.currentTourStep);

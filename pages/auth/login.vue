@@ -82,7 +82,7 @@ export default {
 
   data: () => ({
     recaptchaId: 0,
-    sitekey: '6LeOy3gUAAAAAIfjc5xXKAmEOAcGgW_cDQXR2myE',
+    sitekey: null,
     form: new Form({
       email: '',
       password: '',
@@ -91,22 +91,33 @@ export default {
     remember: false
   }),
 
+  created() {
+    this.sitekey = this.$env.recaptchaSiteKey;
+  },
+
   methods: {
     async login () {
       // Submit the form.
+      this.form.busy = true;
       const { data } = await new Promise((resolve, reject) => {
         this.$auth.loginWith("local", {
           data: this.form
         })
           .then(response => {
+            this.form.busy = false;
+
             resolve(response);
+
             // Redirect home.
             this.$router.push({ name: 'admin.dashboard' });
           })
           .catch(error => {
+            this.form.busy = false;
+
             if (_.has(error, 'response.data.errors')) {
               this.form.errors.set(error.response.data.errors);
             }
+
             if (this.form['g-recaptcha-response'] != '') {
               this.form['g-recaptcha-response'] = ''
               window.grecaptcha.reset(this.recaptchaId)
@@ -119,6 +130,12 @@ export default {
     onCaptcha(token, recaptchaId) {
       this.form['g-recaptcha-response'] = token
       this.recaptchaId = recaptchaId
+    }
+  },
+
+  watch: {
+    sitekey(val) {
+      console.log(val)
     }
   }
 }

@@ -10,7 +10,8 @@ export default {
     storageUrl: process.env.STORAGE_URL || process.env.APP_URL + '/storage',
     appName: process.env.APP_NAME || 'Laravel Nuxt',
     appLocale: process.env.APP_LOCALE || 'ru',
-    githubAuth: !!process.env.GITHUB_CLIENT_ID
+    githubAuth: !!process.env.GITHUB_CLIENT_ID,
+    recaptchaSiteKey: process.env.NOCAPTCHA_SITEKEY
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head

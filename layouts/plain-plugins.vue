@@ -186,7 +186,7 @@
         },
         {
           target: '.nav-menu-filter',
-          content: 'Фильтр по технологиям'
+          content: 'Фильтр по средам выполнения и фреймворкам'
         }
       ],
     }),
@@ -328,16 +328,16 @@
     },
 
     mounted: function () {
-      if(this.showTour('select-plugins-cat') !== false)
-        setTimeout(() => {
+      if(this.showTour('select-plugins-cat') !== false) {
+        let id = setInterval(() => {
+          if(this.steps.every(val => !!$(val.target).length)) {
+            clearInterval(id);
             this.$tours['myTour'].start()
             this.$store.dispatch('interface/saveShowTour', {slug: 'select-plugins-cat', show: false});
-        }, 2000)
+          }
+        }, 1000)
+      }
     },
-
-    beforeDestroy() {
-
-    }
   }
 </script>
 

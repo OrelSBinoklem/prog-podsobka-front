@@ -6,6 +6,7 @@ export default async ({ app }, inject) => {
         storageUrl: process.env.storageUrl,
         appName: process.env.appName,
         appLocale: process.env.appLocale,
-        githubAuth: process.env.githubAuth
+        githubAuth: process.env.githubAuth,
+        recaptchaSiteKey: process.env.recaptchaSiteKey
     }));
 }

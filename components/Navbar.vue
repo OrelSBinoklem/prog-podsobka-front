@@ -1,51 +1,101 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-    <nuxt-link to="/" class="navbar-brand">Frontend</nuxt-link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <nuxt-link to="/" class="nav-link">Home</nuxt-link>
-        </li>
-        <li class="nav-item active">
-          <nuxt-link to="/topics" class="nav-link">Topics</nuxt-link>
-        </li>
-        <li class="nav-item">
-          <nuxt-link to="/dashboard" class="nav-link">Create</nuxt-link>
-        </li>
-      </ul>
-      <template v-if="!authenticated">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <nuxt-link to="/login" class="nav-link">Login</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/register" class="nav-link">Register</nuxt-link>
-          </li>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+      <nuxt-link :to="{ name: 'home' }" class="navbar-brand">
+        {{ appName }}
+      </nuxt-link>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
+        <span class="navbar-toggler-icon"/>
+      </button>
+
+      <div id="navbarToggler" class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+          <locale-dropdown/>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li> -->
         </ul>
-      </template>
-      <template v-if="authenticated">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link">{{user.name}}</a>
+
+        <slot/>
+
+        <ul v-if="showUser" class="navbar-nav ml-auto">
+          <!-- Authenticated -->
+          <li v-if="user" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark"
+               href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
+              {{ user.name }}
+            </a>
+            <div class="dropdown-menu">
+              <nuxt-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
+                <fa icon="cog" fixed-width/>
+                {{ $t('settings') }}
+              </nuxt-link>
+
+              <div class="dropdown-divider"/>
+              <a href="#" class="dropdown-item pl-3" @click.prevent="logout">
+                <fa icon="sign-out-alt" fixed-width/>
+                {{ $t('logout') }}
+              </a>
+            </div>
           </li>
-          <li class="nav-item">
-            <a @click.prevent="logout" class="nav-link">Logout</a>
-          </li>
+          <!-- Guest -->
+          <template v-else>
+            <li class="nav-item">
+              <nuxt-link :to="{ name: 'login' }" class="nav-link" active-class="active">
+                {{ $t('login') }}
+              </nuxt-link>
+            </li>
+            <li class="nav-item">
+              <nuxt-link :to="{ name: 'register' }" class="nav-link" active-class="active">
+                {{ $t('register') }}
+              </nuxt-link>
+            </li>
+          </template>
         </ul>
-      </template>
+      </div>
     </div>
   </nav>
 </template>
+
 <script>
+import { mapGetters } from 'vuex'
+import LocaleDropdown from './LocaleDropdown'
+
 export default {
-methods: {
-  logout() {
-    this.$auth.logout()
+  components: {
+    LocaleDropdown
+  },
+
+  props: {
+    showUser: {type: Boolean, default: true},
+  },
+
+  data: () => ({
+    appName: process.env.appName
+  }),
+
+  computed: mapGetters({
+    user: 'auth/user'
+  }),
+
+  methods: {
+    async logout () {
+      // Log out the user.
+      await this.$auth.logout();
+
+      // Redirect to login.
+      this.$router.push({ name: 'login' })
+    }
   }
 }
-}
-
 </script>
+
+<style scoped>
+.profile-photo {
+  width: 2rem;
+  height: 2rem;
+  margin: -.375rem 0;
+}
+</style>
